@@ -23,12 +23,19 @@ namespace BasicSystems.UX
         public Material normalMaterial;
         public Material outlineMaterial;
 
-        [Header("EVENTO CLICK")]
+        [Header("EVENTOS")]
 
-
+        public bool usarAlternancia = false; //pra clicar uma segunda vez e fazer outra ação
         public UnityEvent evento;
+        public UnityEvent event2;
+        
+
+        [Header("movimento clique")]
         public float descerClick = 0.1f;
         public float levantarClick = 0.1f;
+
+
+        private bool estadoAlternado;
         
         void Start()
         {
@@ -40,10 +47,29 @@ namespace BasicSystems.UX
         void OnMouseDown() //clicar no objeto
         {
             Debug.Log("clicou");
-            evento.Invoke();
+
+
+            if (usarAlternancia)
+            {
+                if (!estadoAlternado)
+                {
+                    evento?.Invoke(); 
+                }
+                else
+                {
+                    event2?.Invoke();
+                }
+                estadoAlternado = !estadoAlternado;
+            }
+            else
+            {
+                evento?.Invoke();
+            }
+
             transform.position += Vector3.down * descerClick;
 
         }
+
         void OnMouseUp()
         {
             transform.position += Vector3.up * levantarClick;
@@ -51,12 +77,13 @@ namespace BasicSystems.UX
 
         void OnMouseEnter() //sobre o objeto
         {
-   
-            rend.material = outlineMaterial;
+            if(outlineMaterial != null)
+            {
+                rend.material = outlineMaterial;  
+            }
         }
         void OnMouseExit() 
         {
-
             rend.material = normalMaterial;
         }
 
