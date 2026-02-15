@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
   m_Name: Dados_Caramelo
   m_EditorClassIdentifier: 
-  fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
   nomePersonagem: Caramelo
+  fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 60
-  turnSpeed: 30
-  mass: 2
+  funcaoTatica: 0
+  taticaX: 0.6
+  taticaZ: 0.1
+  precisao: 31.3
+  maxSpeed: 10
+  aceleracao: 70
   kickPower: 70
   kickCooldown: 2
+  mass: 1.5

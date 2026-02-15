@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
   m_Name: Dados_Uno
   m_EditorClassIdentifier: 
-  fotoDoPersonagem: {fileID: -2049717088, guid: bb22fd55686c21d4db68fd826e51cb59, type: 3}
   nomePersonagem: Fiat Uno
+  fotoDoPersonagem: {fileID: -2049717088, guid: bb22fd55686c21d4db68fd826e51cb59, type: 3}
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 250
-  turnSpeed: 70
+  funcaoTatica: 0
+  taticaX: 0.9
+  taticaZ: 0.5
+  precisao: 20
+  maxSpeed: 10
+  aceleracao: 10
+  kickPower: 100
+  kickCooldown: 2
   mass: 10
-  kickPower: 200
-  kickCooldown: 3

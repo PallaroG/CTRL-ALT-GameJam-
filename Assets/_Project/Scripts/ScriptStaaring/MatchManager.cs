@@ -5,19 +5,19 @@ public class MatchManager : MonoBehaviour {
 
     [Header("Arena")]
     public Transform bola;
-    public Transform golEsquerda; // Onde o Time B defende
-    public Transform golDireita;  // Onde o Time A defende
+    public Transform golEsquerda; // Onde o Time Visitante ataca / Casa defende
+    public Transform golDireita;  // Onde o Time Casa ataca / Visitante defende
     public GameObject prefabJogador;
 
     [Header("Times")]
-    public List<PlayerData> timeCasa; // Jogam da Esquerda -> Direita
-    public List<PlayerData> timeVisitante; // Jogam da Direita -> Esquerda
+    public List<PlayerData> timeCasa; 
+    public List<PlayerData> timeVisitante; 
 
     [Header("Spawns")]
-    public Transform[] spawnsCasa;     // Posições no lado esquerdo
-    public Transform[] spawnsVisitante; // Posições no lado direito
+    public Transform[] spawnsCasa;     
+    public Transform[] spawnsVisitante; 
 
-    // Listas internas
+    // Listas internas para gestão da partida
     private List<PlayerController> todosJogadores = new List<PlayerController>();
     private Vector3 bolaPosicaoInicial;
     
@@ -26,51 +26,64 @@ public class MatchManager : MonoBehaviour {
     private int placarVisitante = 0;
 
     void Start() {
-        bolaPosicaoInicial = bola.position;
+        if (bola != null) bolaPosicaoInicial = bola.position;
         IniciarPartida();
     }
 
     void IniciarPartida() {
-        // Spawnar Time da Casa (Ataca Direita, Defende Esquerda)
-        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda);
+        // Spawnar Time da Casa
+        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda, "Casa");
 
-        // Spawnar Time Visitante (Ataca Esquerda, Defende Direita)
-        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita);
+        // Spawnar Time Visitante
+        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita, "Visitante");
+        
+        Debug.Log("<color=green>PARTIDA INICIADA:</color> Todos os times foram devidamente apresentados.");
     }
 
-    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa) {
+    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa, string nomeTime) {
+        
+        List<PlayerController> timeAtual = new List<PlayerController>();
+
+        // FASE 1: INSTANCIAÇÃO (Cria os corpos físicos primeiro)
         for (int i = 0; i < elenco.Count; i++) {
             if (i >= posicoes.Length) break;
 
             GameObject p = Instantiate(prefabJogador, posicoes[i].position, Quaternion.identity);
             PlayerController ctrl = p.GetComponent<PlayerController>();
             
-            // Injeta a inteligência: "Aquele é seu alvo, essa é sua casa"
-            ctrl.Initialize(elenco[i], bola, ataque, defesa);
-            
-            todosJogadores.Add(ctrl);
+            timeAtual.Add(ctrl);          
+            todosJogadores.Add(ctrl);      
         }
+
+        // FASE 2: CONSCIENTIZAÇÃO (Apresenta o time completo para cada cérebro de IA)
+        // Isso garante que todos os aliados já existem no mundo antes da IA começar a pensar
+        for (int i = 0; i < timeAtual.Count; i++) {
+            timeAtual[i].Initialize(elenco[i], bola, ataque, defesa, timeAtual);
+        }
+        
+        Debug.Log($"Time {nomeTime} spawnado com {timeAtual.Count} jogadores.");
     }
 
     public void RegistrarGol(string quemMarcou) {
-        Debug.Log("GOOOOL DO " + quemMarcou.ToUpper() + "!");
-        
         if (quemMarcou == "Casa") placarCasa++;
         else placarVisitante++;
 
-        Debug.Log($"PLACAR: Casa {placarCasa} x {placarVisitante} Visitante");
+        Debug.Log($"<color=cyan>GOOOOL DO {quemMarcou.ToUpper()}!</color>");
+        Debug.Log($"<b>PLACAR:</b> Casa {placarCasa} x {placarVisitante} Visitante");
 
-        // Reseta a rodada
-        Invoke("ResetarRodada", 2.0f); // Espera 2 segundos e reseta
+        Invoke("ResetarRodada", 2.0f); 
     }
 
     void ResetarRodada() {
-        // 1. Bola volta pro meio e para
-        bola.position = bolaPosicaoInicial;
-        bola.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        bola.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        if (bola != null) {
+            bola.position = bolaPosicaoInicial;
+            Rigidbody ballRb = bola.GetComponent<Rigidbody>();
+            if (ballRb != null) {
+                ballRb.linearVelocity = Vector3.zero; // Unity 6
+                ballRb.angularVelocity = Vector3.zero;
+            }
+        }
 
-        // 2. Jogadores voltam pros seus lugares
         foreach (var jogador in todosJogadores) {
             jogador.ResetPosition();
         }
