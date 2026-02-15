@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0f78c4b42da9da042a48daeda1afa055
+guid: 1d71c5574aabab3439181787a763177d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Caramelo_0
+      name: Portraites2_0
       rect:
         serializedVersion: 2
-        x: 138
-        y: 91
-        width: 1619
-        height: 2351
+        x: 1
+        y: 0
+        width: 499
+        height: 499
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2238d043803a45c48b1e515bc37fec0a
-      internalID: 2136115766
+      spriteID: 94456dc15a407ae44b9bb1caaef09675
+      internalID: 2054983038
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 18fee901104c59845b14644e9b88ff66
+    spriteID: 675d1cc457051634b9768526fa408f0d
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Caramelo_0: 2136115766
+      Portraites2_0: 2054983038
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: Dados_Pombo
+  m_Name: Dados_Uno
   m_EditorClassIdentifier: 
-  nomePersonagem: Pombo
-  corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
+  fotoDoPersonagem: {fileID: 1551762019, guid: 6c352141b2566a942843a19ac7bf9db6, type: 3}
+  nomePersonagem: Fiat Uno
+  corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 15
-  turnSpeed: 10
-  mass: 1
-  kickPower: 50
-  kickCooldown: 1
+  maxSpeed: 250
+  turnSpeed: 70
+  mass: 10
+  kickPower: 200
+  kickCooldown: 3

@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
         DecideStrategy();
         ExecuteState();
-        RotateBody();
+        //RotateBody();
     }
 
     void DecideStrategy() {
