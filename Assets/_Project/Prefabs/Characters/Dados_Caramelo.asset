@@ -17,11 +17,12 @@ MonoBehaviour:
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
   funcaoTatica: 0
-  taticaX: 0.6
-  taticaZ: 0.1
+  visaoDeJogo: 0
   precisao: 31.3
-  maxSpeed: 10
+  maxSpeed: 70
   aceleracao: 70
-  kickPower: 70
-  kickCooldown: 2
+  controleCorporal: 0
   mass: 1.5
+  agilidade: 0
+  kickPower: 70
+  kickCooldown: 0
