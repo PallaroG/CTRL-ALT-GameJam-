@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: Dados_Uno
+  m_Name: Dados_Caramelo
   m_EditorClassIdentifier: 
-  fotoDoPersonagem: {fileID: -2049717088, guid: bb22fd55686c21d4db68fd826e51cb59, type: 3}
-  nomePersonagem: Fiat Uno
+  fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
+  nomePersonagem: Caramelo
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 250
-  turnSpeed: 70
-  mass: 10
-  kickPower: 200
-  kickCooldown: 3
+  maxSpeed: 60
+  turnSpeed: 30
+  mass: 2
+  kickPower: 70
+  kickCooldown: 2

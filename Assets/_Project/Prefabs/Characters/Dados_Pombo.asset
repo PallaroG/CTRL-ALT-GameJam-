@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
   m_Name: Dados_Pombo
   m_EditorClassIdentifier: 
-  fotoDoPersonagem: {fileID: -1420040360, guid: 4789c167bd8d8a54cb860e8a8d9c1231, type: 3}
+  fotoDoPersonagem: {fileID: 351950150, guid: 9700909ad53bd484493daac9bb24d32a, type: 3}
   nomePersonagem: Pombo
   corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
   visualModel: {fileID: 0}
