@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
+  m_Name: Dados_Caramelo
+  m_EditorClassIdentifier: 
+  nomePersonagem: Caramelo
+  fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
+  corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
+  visualModel: {fileID: 0}
+  funcaoTatica: 0
+  visaoDeJogo: 0
+  precisao: 31.3
+  maxSpeed: 70
+  aceleracao: 70
+  controleCorporal: 0
+  mass: 1.5
+  agilidade: 0
+  kickPower: 70
+  kickCooldown: 0

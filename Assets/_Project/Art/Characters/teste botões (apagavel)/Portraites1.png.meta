@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77924cfd15537474b84d82c97c9d05d4
+guid: 9acbfd90166426242b994a9b136a155e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ET Bilu_0
+      name: Portraites1_0
       rect:
         serializedVersion: 2
-        x: 21
+        x: 0
         y: 0
-        width: 1889
-        height: 2653
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 649eccde8d530c144aaa60e13a968904
-      internalID: -778435823
+      spriteID: f7a98328a8e58da4991969703c995d00
+      internalID: -1521369393
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 34d9960a6338bdf49a4762e027a91dbc
+    spriteID: cda463399c21fe541b7804fc25517e33
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ET Bilu_0: -778435823
+      Portraites1_0: -1521369393
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

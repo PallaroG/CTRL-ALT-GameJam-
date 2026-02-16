@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: Cadeirante
+  m_Name: Dados_Pombo
   m_EditorClassIdentifier: 
-  nomePersonagem: 
-  corRepresentativa: {r: 0, g: 0, b: 0, a: 0}
+  nomePersonagem: Pombo
+  fotoDoPersonagem: {fileID: 351950150, guid: 9700909ad53bd484493daac9bb24d32a, type: 3}
+  corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 0
-  turnSpeed: 0
-  mass: 0
-  kickPower: 0
-  kickCooldown: 0
+  funcaoTatica: 1
+  taticaX: 0
+  taticaZ: 0.5
+  precisao: 50
+  maxSpeed: 10
+  aceleracao: 70
+  kickPower: 50
+  kickCooldown: 1
+  mass: 1

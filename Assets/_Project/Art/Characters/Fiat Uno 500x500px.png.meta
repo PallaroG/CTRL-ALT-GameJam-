@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f4e799c2684dae4783653bc4338e240
+guid: 6c352141b2566a942843a19ac7bf9db6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Capibara_0
+      name: Fiat Uno 500x500px_0
       rect:
         serializedVersion: 2
-        x: 81
-        y: 39
-        width: 1745
-        height: 2291
+        x: 0
+        y: 67
+        width: 500
+        height: 382
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 855ef4ee76b0b394ea2a1d8be611fba7
-      internalID: -764978057
+      spriteID: 6a96db1548e66004f881dd04a69b5cbe
+      internalID: 1551762019
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4650f4be8fb877e4d91370a4cb33368c
+    spriteID: d1cae8a17c5bacf4bbb9d9455f3a51af
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Capibara_0: -764978057
+      Fiat Uno 500x500px_0: 1551762019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

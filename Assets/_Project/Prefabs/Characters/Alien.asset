@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: Dados_Uno
+  m_Name: Alien
   m_EditorClassIdentifier: 
-  nomePersonagem: Fiat Uno
-  corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
+  fotoDoPersonagem: {fileID: 116016577, guid: 79a484ae3236cd7409cba84c42166a87, type: 3}
+  nomePersonagem: Alien
+  corRepresentativa: {r: 1, g: 1, b: 1, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 250
-  turnSpeed: 70
-  mass: 10
-  kickPower: 300
-  kickCooldown: 3
+  maxSpeed: 20
+  turnSpeed: 10
+  mass: 2
+  kickPower: 60
+  kickCooldown: 1.2

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0f78c4b42da9da042a48daeda1afa055
+guid: fa30b09dc59c8bb4fa165a323022fd07
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Caramelo_0
+      name: "cap_bot\xE3o_0"
       rect:
         serializedVersion: 2
-        x: 138
-        y: 91
-        width: 1619
-        height: 2351
+        x: 0
+        y: 0
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2238d043803a45c48b1e515bc37fec0a
-      internalID: 2136115766
+      spriteID: 9187a03fa7c464b4cbba68cff3b8ac38
+      internalID: 1575053820
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 18fee901104c59845b14644e9b88ff66
+    spriteID: 0a017fd0cc3cc7b4d8fd6565d8819f73
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Caramelo_0: 2136115766
+      "cap_bot\xE3o_0": 1575053820
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
