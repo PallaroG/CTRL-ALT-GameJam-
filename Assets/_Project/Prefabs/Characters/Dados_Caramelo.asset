@@ -20,7 +20,7 @@ MonoBehaviour:
   visaoDeJogo: 0
   precisao: 31.3
   maxSpeed: 70
-  aceleracao: 70
+  aceleracao: 50
   controleCorporal: 0
   mass: 1.5
   agilidade: 0

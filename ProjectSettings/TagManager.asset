@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - Bola
+  - Chao
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Campo
   - Water
   - UI
   - 

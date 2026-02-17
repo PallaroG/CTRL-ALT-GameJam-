@@ -850,7 +850,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 70
+  field of view: 79
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1148,7 +1148,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 3023
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -1297,7 +1297,7 @@ SpriteRenderer:
   m_Size: {x: 16.19, y: 23.51696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &415293122
@@ -1752,7 +1752,7 @@ SpriteRenderer:
   m_Size: {x: 16.19, y: 23.51696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &667178815
@@ -2160,7 +2160,7 @@ SpriteRenderer:
   m_Size: {x: 16.19, y: 23.51696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &883098030
@@ -2813,7 +2813,7 @@ SpriteRenderer:
   m_Size: {x: 16.19, y: 23.51696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1093145921
@@ -3167,7 +3167,7 @@ SpriteRenderer:
   m_Size: {x: 17.45, y: 22.916782}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1162629070
@@ -3254,7 +3254,7 @@ SpriteRenderer:
   m_Size: {x: 18.89, y: 26.537855}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1209606066
@@ -3564,7 +3564,7 @@ SpriteRenderer:
   m_Size: {x: 16.19, y: 23.51696}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1332138947
@@ -4150,7 +4150,7 @@ SpriteRenderer:
   m_Size: {x: 17.39, y: 14.144187}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1697207537
@@ -4354,6 +4354,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6461ecaa023d2c71b53e3068c89584c, type: 3}
   m_PrefabInstance: {fileID: 1714574408}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1717838775
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9026410305385388393, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9026410305385388393, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0000029504295
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_Name
+      value: "Galp\xE3oFudido"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3634552281859092110, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 796ad7f2e698bff4d816c75f3490ab53, type: 3}
 --- !u!1 &1764590160
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,3 +5052,4 @@ SceneRoots:
   - {fileID: 1162629070}
   - {fileID: 1697207537}
   - {fileID: 63945473}
+  - {fileID: 1717838775}

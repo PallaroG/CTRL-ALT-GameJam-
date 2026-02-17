@@ -3,28 +3,26 @@ using UnityEngine;
 public enum PosicaoTatica { Linha, Goleiro }
 
 [CreateAssetMenu(fileName = "NovoPersonagem", menuName = "Futebol/Personagem")]
-
 public class PlayerData : ScriptableObject {
     
     [Header("Identidade")]
     public string nomePersonagem;
-    public Sprite fotoDoPersonagem;
+    public Sprite fotoDoPersonagem; // A imagem do Uno/Pombo
     public Color corRepresentativa; 
-    public GameObject visualModel;
+    public GameObject visualModel;  // O modelo 3D (opcional agora que usamos Sprite)
     public PosicaoTatica funcaoTatica;
 
-    [Header("Mental (FM)")]
-    [Range(0, 50)] public float visaoDeJogo;
-    
-    [Header("Física FM (Football Manager)")]
-    [Range(0, 100)] public float precisao; // o quanto o jogador é bom em chutar na direção certa (0 a 100)
-    public float maxSpeed;       // Velocidade Final 
-    public float aceleracao;     // Arrancada (0 a 100) - Força do Motor
-    public float controleCorporal; // (Drag) 0.5 = Sabão/Carro | 5 a 10 = Humano/Chuteira
-    public float mass;           // Peso 
-    public float agilidade;      //Capacidade de fazer curvas fechadas
-    
+    [Header("Física (Steering)")]
+    public float mass;           // Peso (Uno = 800, Pombo = 5)
+    public float maxSpeed;       // Velocidade Máxima
+    public float agilidade;      // (MaxForce) Capacidade de fazer curvas fechadas
+    public float aceleracao;     // Quão rápido chega na velocidade máxima
+
     [Header("Habilidades")]
-    public float kickPower;    
-    public float kickCooldown; 
+    [Range(0, 100)] public float precisao; // 100 = Chuta onde quer, 0 = Chuta torto
+    public float kickPower;    // Força do chute
+
+    [Header("Especial (Caos)")]
+    public bool podeVoar;      // <--- O ERRO ESTAVA AQUI (Faltava essa variável)
+    public float alturaDeVoo = 3.0f; // Altura que o pombo fica do chão
 }

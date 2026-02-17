@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 public class MatchManager : MonoBehaviour {
 
+    public static MatchManager Instance; // Singleton para facilitar acesso global
+
     [Header("Arena")]
     public Transform bola;
-    public Transform golEsquerda; // Onde o Time Visitante ataca / Casa defende
-    public Transform golDireita;  // Onde o Time Casa ataca / Visitante defende
-    public GameObject prefabJogador;
+    public Transform golEsquerda; 
+    public Transform golDireita;  
+    public GameObject prefabJogador; // O "BasePlayer" (Esfera com Sprite)
 
     [Header("Times")]
     public List<PlayerData> timeCasa; 
@@ -17,75 +19,71 @@ public class MatchManager : MonoBehaviour {
     public Transform[] spawnsCasa;     
     public Transform[] spawnsVisitante; 
 
-    // Listas internas para gestão da partida
-    private List<PlayerController> todosJogadores = new List<PlayerController>();
-    private Vector3 bolaPosicaoInicial;
-    
-    // Placar
-    private int placarCasa = 0;
-    private int placarVisitante = 0;
+    // Placar Interno
+    private int golsCasa = 0;
+    private int golsVisitante = 0;
+    private Vector3 posicaoInicialBola;
+
+    void Awake() {
+        Instance = this; // Garante que outros scripts achem esse aqui
+    }
 
     void Start() {
-        if (bola != null) bolaPosicaoInicial = bola.position;
+        if (bola != null) posicaoInicialBola = bola.position;
         IniciarPartida();
     }
 
     void IniciarPartida() {
-        // Spawnar Time da Casa
-        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda, "Casa");
+        // Time da Casa ataca para a Direita (Gol Direita é o alvo)
+        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda); 
 
-        // Spawnar Time Visitante
-        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita, "Visitante");
+        // Time Visitante ataca para a Esquerda (Gol Esquerda é o alvo)
+        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita); 
         
-        Debug.Log("<color=green>PARTIDA INICIADA:</color> Todos os times foram devidamente apresentados.");
+        Debug.Log("Partida Iniciada!");
     }
 
-    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa, string nomeTime) {
-        
-        List<PlayerController> timeAtual = new List<PlayerController>();
-
-        // FASE 1: INSTANCIAÇÃO (Cria os corpos físicos primeiro)
+    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa) {
         for (int i = 0; i < elenco.Count; i++) {
             if (i >= posicoes.Length) break;
 
+            // Cria o objeto
             GameObject p = Instantiate(prefabJogador, posicoes[i].position, Quaternion.identity);
-            PlayerController ctrl = p.GetComponent<PlayerController>();
-            
-            timeAtual.Add(ctrl);          
-            todosJogadores.Add(ctrl);      
-        }
+            p.name = elenco[i].nomePersonagem;
 
-        // FASE 2: CONSCIENTIZAÇÃO (Apresenta o time completo para cada cérebro de IA)
-        // Isso garante que todos os aliados já existem no mundo antes da IA começar a pensar
-        for (int i = 0; i < timeAtual.Count; i++) {
-            timeAtual[i].Initialize(elenco[i], bola, ataque, defesa, timeAtual);
-        }
-        
-        Debug.Log($"Time {nomeTime} spawnado com {timeAtual.Count} jogadores.");
-    }
-
-    public void RegistrarGol(string quemMarcou) {
-        if (quemMarcou == "Casa") placarCasa++;
-        else placarVisitante++;
-
-        Debug.Log($"<color=cyan>GOOOOL DO {quemMarcou.ToUpper()}!</color>");
-        Debug.Log($"<b>PLACAR:</b> Casa {placarCasa} x {placarVisitante} Visitante");
-
-        Invoke("ResetarRodada", 2.0f); 
-    }
-
-    void ResetarRodada() {
-        if (bola != null) {
-            bola.position = bolaPosicaoInicial;
-            Rigidbody ballRb = bola.GetComponent<Rigidbody>();
-            if (ballRb != null) {
-                ballRb.linearVelocity = Vector3.zero; // Unity 6
-                ballRb.angularVelocity = Vector3.zero;
+            // Configura o Cérebro
+            FootballBrain brain = p.GetComponent<FootballBrain>();
+            if (brain) {
+                brain.Initialize(elenco[i], bola, ataque, defesa);
             }
         }
+    }
 
-        foreach (var jogador in todosJogadores) {
-            jogador.ResetPosition();
+    // --- A FUNÇÃO QUE FALTAVA ---
+    public void RegistrarGol(string timeQueMarcou) {
+        if (timeQueMarcou == "Casa") {
+            golsCasa++;
+        } else {
+            golsVisitante++;
+        }
+
+        Debug.Log($"<color=green>GOL DO {timeQueMarcou.ToUpper()}!</color> Placar: {golsCasa} x {golsVisitante}");
+
+        // Reinicia a bola após 2 segundos
+        Invoke("ResetarBola", 2.0f);
+    }
+
+    void ResetarBola() {
+        if (bola == null) return;
+
+        // Reseta posição
+        bola.position = posicaoInicialBola;
+
+        // Zera a física (para a bola não continuar rolando sozinha)
+        Rigidbody rb = bola.GetComponent<Rigidbody>();
+        if (rb != null) {
+            rb.linearVelocity = Vector3.zero; // Unity 6
+            rb.angularVelocity = Vector3.zero;
         }
     }
 }
