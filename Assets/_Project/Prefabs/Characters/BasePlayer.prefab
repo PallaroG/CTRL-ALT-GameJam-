@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9.67014, y: 9.67014, z: 9.67014}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5941694301452363297}
@@ -206,9 +206,13 @@ MonoBehaviour:
   bola: {fileID: 0}
   golAtaque: {fileID: 0}
   golDefesa: {fileID: 0}
-  raioDeVisao: 5868
-  distanciaChute: 2.5
+  meusCompanheiros: []
+  raioDeVisao: 7543
+  distanciaDoChute: 3
+  cooldownPasse: 1
   estadoAtual: 0
+  ultimaDecisao: Aguardando...
+  distanciaAtualDaBola: 0
 --- !u!1 &8938009216277398316
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,8 +239,8 @@ Transform:
   m_GameObject: {fileID: 8938009216277398316}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 11.4, z: 0}
-  m_LocalScale: {x: 42.787495, y: 42.787495, z: 42.787495}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5941694301452363297}

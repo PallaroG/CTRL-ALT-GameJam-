@@ -17,11 +17,13 @@ MonoBehaviour:
   corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
   visualModel: {fileID: 0}
   funcaoTatica: 0
+  taticaX: 0.886
+  taticaZ: 0.727
   mass: 1
-  maxSpeed: 25
+  maxSpeed: 15
   agilidade: 80
   aceleracao: 150
-  precisao: 50
-  kickPower: 50
-  podeVoar: 1
+  precisao: 100
+  kickPower: 100
+  podeVoar: 0
   alturaDeVoo: 2

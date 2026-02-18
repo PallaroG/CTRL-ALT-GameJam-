@@ -3,39 +3,68 @@ using UnityEngine;
 public class FormationManager : MonoBehaviour {
     public static FormationManager Instance;
 
-    [Header("Configuração do Campo")]
+    [Header("Vínculos")]
     public Transform bola;
-    public float campoComprimento = 90f; // Ajuste conforme seu cenário
-    public float campoLargura = 50f;
+
+    [Header("Alinhamento do Mapa (GIZMOS)")]
+    // Use isso para mover a caixa verde/amarela até encaixar no gramado
+    public Vector3 centroDoCampo = Vector3.zero; 
+
+    [Header("Configuração das Dimensões")]
+    public float campoComprimento = 90f; // Eixo Z
+    public float campoLargura = 50f;     // Eixo X
+    
+    [Header("Limites de Segurança")]
+    public float margemFundo = 5.0f;     
+    public float margemLateral = 2.0f;   
 
     void Awake() { Instance = this; }
 
     public Vector3 GetTacticalPosition(float xFactor, float zFactor, bool isTimeCasa) {
-        if (bola == null) return Vector3.zero;
+        if (bola == null) return centroDoCampo; // Retorna o centro se não houver bola
 
-        // A posição base flutua com a bola (O time sobe e desce em bloco)
-        float bolaX = Mathf.Clamp(bola.position.x, -campoComprimento/2, campoComprimento/2);
-        
-        // Se a bola avança, o time avança 60% do caminho (para não deixar a defesa exposta)
-        float offsetX = bolaX * 0.6f; 
+        // --- 1. AJUSTE DO EIXO Z (COMPRIMENTO) ---
+        // Acompanha a bola relativo ao centro do campo definido por você
+        float bolaZRelativa = bola.position.z - centroDoCampo.z;
+        float bolaZClamped = Mathf.Clamp(bolaZRelativa, -campoComprimento/2, campoComprimento/2);
+        float offsetZ = bolaZClamped * 0.6f; 
 
-        // Calcula posição relativa à formação
-        // Ex: Se xFactor é 0 (Zaga), ele fica atrás do centro do bloco
-        float posX = (xFactor - 0.5f) * (campoComprimento * 0.8f);
-        float posZ = (zFactor - 0.5f) * (campoLargura * 0.9f);
+        float areaJogavelZ = campoComprimento - (margemFundo * 2); 
+        float posZ = (zFactor - 0.5f) * areaJogavelZ;
+        float finalZ = posZ + offsetZ;
 
-        // Se for visitante, inverte o campo (ataca para a esquerda)
+        // --- 2. AJUSTE DO EIXO X (LARGURA) ---
+        float areaJogavelX = campoLargura - (margemLateral * 2);
+        float posX = (xFactor - 0.5f) * areaJogavelX;
+
+        // --- 3. INVERSÃO (VISITANTE) ---
         if (!isTimeCasa) {
             posX = -posX;
-            offsetX = -offsetX; 
+            finalZ = -finalZ;
+            finalZ -= (offsetZ * 2); 
         }
 
-        Vector3 finalPos = new Vector3(posX + offsetX, 0, posZ);
+        // --- 4. TRAVA E POSIÇÃO FINAL ---
+        // Adicionamos 'centroDoCampo' no final para que os jogadores sigam o Gizmo movido
+        Vector3 finalPos = new Vector3(posX + centroDoCampo.x, 0, finalZ + centroDoCampo.z);
         
-        // Trava dentro do campo
-        finalPos.x = Mathf.Clamp(finalPos.x, -campoComprimento/2, campoComprimento/2);
-        finalPos.z = Mathf.Clamp(finalPos.z, -campoLargura/2, campoLargura/2);
+        float limiteZ = (campoComprimento / 2) - margemFundo;
+        float limiteX = (campoLargura / 2) - margemLateral;
+
+        finalPos.x = Mathf.Clamp(finalPos.x, centroDoCampo.x - limiteX, centroDoCampo.x + limiteX);
+        finalPos.z = Mathf.Clamp(finalPos.z, centroDoCampo.z - limiteZ, centroDoCampo.z + limiteZ);
 
         return finalPos;
+    }
+
+    void OnDrawGizmos() {
+        // Desenha a partir do 'centroDoCampo' em vez do zero absoluto
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(centroDoCampo, new Vector3(campoLargura, 1, campoComprimento));
+        
+        Gizmos.color = Color.yellow;
+        float sizeZ = campoComprimento - (margemFundo * 2);
+        float sizeX = campoLargura - (margemLateral * 2);
+        Gizmos.DrawWireCube(centroDoCampo, new Vector3(sizeX, 1, sizeZ));
     }
 }
