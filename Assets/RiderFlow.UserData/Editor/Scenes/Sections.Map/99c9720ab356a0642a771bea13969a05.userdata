@@ -1,0 +1,52 @@
+{
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1929472616-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1929472616-0",
+    "SectionColorRed": 0.0,
+    "SectionColorGreen": 0.0,
+    "SectionColorBlue": 0.0,
+    "SectionAltColorRed": 0.0,
+    "SectionAltColorGreen": 0.0,
+    "SectionAltColorBlue": 0.0,
+    "RemoveSectionDuringBuild": false
+  },
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-647745938-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-647745938-0",
+    "SectionColorRed": 0.0,
+    "SectionColorGreen": 0.0,
+    "SectionColorBlue": 0.0,
+    "SectionAltColorRed": 0.0,
+    "SectionAltColorGreen": 0.0,
+    "SectionAltColorBlue": 0.0,
+    "RemoveSectionDuringBuild": false
+  },
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1275500915-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1275500915-0",
+    "SectionColorRed": 0.0,
+    "SectionColorGreen": 0.0,
+    "SectionColorBlue": 0.0,
+    "SectionAltColorRed": 0.0,
+    "SectionAltColorGreen": 0.0,
+    "SectionAltColorBlue": 0.0,
+    "RemoveSectionDuringBuild": false
+  },
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1508078724-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1508078724-0",
+    "SectionColorRed": 0.195982754,
+    "SectionColorGreen": 0.195982754,
+    "SectionColorBlue": 0.195982754,
+    "SectionAltColorRed": 0.195982754,
+    "SectionAltColorGreen": 0.195982754,
+    "SectionAltColorBlue": 0.195982754,
+    "RemoveSectionDuringBuild": false
+  },
+  "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-498616213-0": {
+    "GameObjectId": "GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-498616213-0",
+    "SectionColorRed": 0.196655273,
+    "SectionColorGreen": 0.196655273,
+    "SectionColorBlue": 0.196655273,
+    "SectionAltColorRed": 0.196655273,
+    "SectionAltColorGreen": 0.196655273,
+    "SectionAltColorBlue": 0.196655273,
+    "RemoveSectionDuringBuild": false
+  }
+}

@@ -11,15 +11,18 @@ public class contratacaoScript : MonoBehaviour
 
     */
 
-
+    public filaManager filaManager;
     public void contratado()
     {
         Debug.Log("Opa vem pra ca");
+        filaManager.SairPrimeiro();
+        //adicionar ele na tabela
     }
 
     public void dispensado()
     {
         Debug.Log("Sai pra lá");
+        filaManager.SairPrimeiro();
     }
 
 
