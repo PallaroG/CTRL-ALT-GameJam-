@@ -19,10 +19,10 @@ MonoBehaviour:
   funcaoTatica: 1
   taticaX: 0.2
   taticaZ: 0.608
-  mass: 80
-  maxSpeed: 200
+  mass: 10
+  maxSpeed: 25
   agilidade: 25
-  aceleracao: 200
+  aceleracao: 170
   precisao: 20
   kickPower: 200
   podeVoar: 0

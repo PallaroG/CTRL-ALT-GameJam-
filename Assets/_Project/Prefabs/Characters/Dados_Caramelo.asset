@@ -16,14 +16,14 @@ MonoBehaviour:
   fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  funcaoTatica: 1
-  taticaX: 0.489
-  taticaZ: 0.722
+  funcaoTatica: 0
+  taticaX: 0.126
+  taticaZ: 0.503
   mass: 3
-  maxSpeed: 70
+  maxSpeed: 20
   agilidade: 60
   aceleracao: 160
   precisao: 30
-  kickPower: 70
+  kickPower: 200
   podeVoar: 0
   alturaDeVoo: 3
