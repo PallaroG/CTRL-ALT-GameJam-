@@ -19,7 +19,11 @@ namespace BasicSystems.Effects
         void Update()
         {
             float offset = Mathf.Sin(Time.time * frequency) * amplitude;
-            transform.position = startPos + Vector3.up * offset;
+
+            Vector3 basePos = transform.position;
+            basePos.y += offset * Time.deltaTime;
+
+            transform.position = basePos;
         }
     }
     
