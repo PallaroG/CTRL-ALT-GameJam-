@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum AIState { IDLE, CHASE_BALL, RETURN_POSITION, WITH_BALL }
-
 public class FootballBrain : MonoBehaviour {
 
     [Header("Vínculos")]
     public PlayerData stats; 
-    private SteeringAgent motor; 
+    private ArcadeMotor motor; 
     public SpriteRenderer meuSprite; 
     
     [Header("Consciência Tática")]
@@ -15,219 +13,130 @@ public class FootballBrain : MonoBehaviour {
     public Transform golAtaque;
     public Transform golDefesa;
     public List<FootballBrain> meusCompanheiros = new List<FootballBrain>(); 
-    
-    // REMOVI AS VARIÁVEIS "taticaX" e "taticaZ" DAQUI. 
-    // AGORA ELAS VÊM DO "stats" (PlayerData).
 
-    [Header("Configurações de IA")]
-    public float raioDeVisao = 1000f; 
-    public float distanciaDoChute = 3.0f; 
-    public float cooldownPasse = 1.0f; 
+    [Header("Configurações Arcade")]
+    public float raioDeDeteccao = 12.0f; 
+    public float distanciaChuteArcade = 2.8f; 
+    public float distanciaParaDriblar = 4.0f; // VALOR DE GATILHO PARA O DRIBLE
+    private float nextActionTime = 0f;
 
-    [Header("Debug - OLHE AQUI")]
+    [Header("Ajustes de Condução")]
+    [Range(0.01f, 0.2f)] public float forcaMinima = 0.05f; 
+    [Range(0.2f, 1.0f)] public float forcaMaxima = 0.4f;  
+
+    [Header("Debug")]
     public AIState estadoAtual;
-    public string ultimaDecisao = "Aguardando..."; 
     public float distanciaAtualDaBola; 
-    public bool souOMaisProximo = false; 
-    
-    private float nextActionTime = 0f; 
 
-    public void Initialize(PlayerData data, Transform _bolaIncorreta, Transform _ataque, Transform _defesa, List<FootballBrain> _time) {
+    public void Initialize(PlayerData data, Transform _bolaReal, Transform _ataque, Transform _defesa, List<FootballBrain> _time) {
         stats = data;
         golAtaque = _ataque;
         golDefesa = _defesa;
-        
         meusCompanheiros = new List<FootballBrain>(_time);
         meusCompanheiros.Remove(this);
+        bola = _bolaReal; 
 
-        GameObject bolaReal = GameObject.FindGameObjectWithTag("Bola");
-        if (bolaReal != null) bola = bolaReal.transform;
-        else bola = _bolaIncorreta; 
+        motor = GetComponent<ArcadeMotor>();
+        if (meuSprite != null && stats.fotoDoPersonagem != null) meuSprite.sprite = stats.fotoDoPersonagem;
 
-        if (meuSprite != null && stats.fotoDoPersonagem != null) {
-            meuSprite.sprite = stats.fotoDoPersonagem;
-            if (stats.mass > 100) meuSprite.transform.localScale = Vector3.one * 1.2f; 
-            else meuSprite.transform.localScale = Vector3.one;
-        }
-
-        motor = GetComponent<SteeringAgent>();
-        if (motor != null) {
-            motor.maxSpeed = stats.maxSpeed;
-            motor.maxForce = stats.agilidade;
-            motor.mass = stats.mass;
-            motor.isFlying = stats.podeVoar; 
+        if (bola != null) {
+            Collider[] meusColisores = GetComponentsInChildren<Collider>();
+            Collider colisorDaBola = bola.GetComponentInChildren<Collider>();
+            if (meusColisores != null && colisorDaBola != null) {
+                foreach(var c in meusColisores) Physics.IgnoreCollision(c, colisorDaBola, true);
+            }
         }
     }
 
     void Update() {
         if (bola == null) return;
         distanciaAtualDaBola = Vector3.Distance(transform.position, bola.position);
-        TomarDecisao();
-    }
-
-    void TomarDecisao() {
-        // --- 1. SOU GOLEIRO? ---
-        if (stats.funcaoTatica == PosicaoTatica.Goleiro) {
-            DefenderGol();
-            return;
-        }
-
-        // --- 2. QUEM VAI NA BOLA? ---
-        souOMaisProximo = VerificarSeSouOMaisProximo();
-
-        // --- 3. ÁRVORE DE DECISÃO ---
-
-        // A. Estou com a bola -> JOGA
-        if (distanciaAtualDaBola <= distanciaDoChute) {
+        
+        if (distanciaAtualDaBola <= distanciaChuteArcade) {
             estadoAtual = AIState.WITH_BALL;
-            if (Time.time > nextActionTime) DecidirComBola();
-        }
-        // B. Sou o mais próximo -> CORRE PRA BOLA
-        else if (souOMaisProximo) {
+            if (Time.time >= nextActionTime) {
+                AnalisarCaminhoProGol();
+            }
+        } else {
             estadoAtual = AIState.CHASE_BALL;
-            motor.SetTarget(bola.position);
+            motor.SetMovement(bola.position, Vector3.zero, stats.maxSpeed);
         }
-        // C. Não sou o mais próximo -> DESMARCAR (Usando PlayerData!)
-        else {
-            estadoAtual = AIState.RETURN_POSITION;
-            if (FormationManager.Instance) {
-                // AQUI ESTÁ A MUDANÇA: Usamos stats.taticaX e stats.taticaZ
-                Vector3 target = FormationManager.Instance.GetTacticalPosition(stats.taticaX, stats.taticaZ, IsTimeCasa());
-                motor.SetTarget(target);
-            } else {
-                Vector3 direcao = (transform.position - bola.position).normalized;
-                motor.SetTarget(bola.position + direcao * 10f);
+
+        motor.LookAtTarget(bola.position);
+    }
+
+    void AnalisarCaminhoProGol() {
+        Vector3 direcaoGol = (golAtaque.position - transform.position).normalized;
+        string tagInimiga = (this.CompareTag("CASA")) ? "VISITANTE" : "CASA";
+        
+        RaycastHit hit;
+        Vector3 origemRaio = transform.position + (direcaoGol * 1.5f) + Vector3.up;
+
+        Debug.DrawRay(origemRaio, direcaoGol * raioDeDeteccao, Color.yellow, 0.1f);
+
+        if (Physics.SphereCast(origemRaio, 2.0f, direcaoGol, out hit, raioDeDeteccao)) {
+            if (hit.collider != null && hit.collider.attachedRigidbody != null && hit.collider.attachedRigidbody.CompareTag(tagInimiga)) {
+                
+                float distInimigo = hit.distance;
+
+                // Transição de lógica baseada no valor de distanciaParaDriblar
+                if (distInimigo <= distanciaParaDriblar) {
+                    RealizarDribleLateral(direcaoGol);
+                } else {
+                    ConduzirControlado(direcaoGol, distInimigo);
+                }
+                return;
             }
         }
+
+        ExecutarChuteDireto();
     }
 
-    bool VerificarSeSouOMaisProximo() {
-        if (distanciaAtualDaBola <= distanciaDoChute) return true;
+    void ConduzirControlado(Vector3 direcao, float distInimigo) {
+        // Cálculo da força baseado na proximidade
+        float t = (distInimigo - distanciaParaDriblar) / (raioDeDeteccao - distanciaParaDriblar);
+        float fatorFinal = Mathf.Lerp(forcaMinima, forcaMaxima, t);
+        float forcaFinal = stats.kickPower * fatorFinal;
 
-        foreach (var amigo in meusCompanheiros) {
-            if (amigo == null) continue;
-            if (amigo.stats.funcaoTatica == PosicaoTatica.Goleiro) continue;
+        // Debug específico para monitorar a diminuição da força
+        string msg = $"Diminuindo força: Inimigo a {distInimigo:F1}m. Potência atual: {fatorFinal * 100:F0}%";
+        AplicarForcaNaBola(direcao, forcaFinal, msg, "cyan");
+        
+        nextActionTime = Time.time + 0.4f; 
+    }
 
-            float distAmigo = Vector3.Distance(amigo.transform.position, bola.position);
+    void RealizarDribleLateral(Vector3 direcaoGol) {
+        Vector3 direcaoDrible = Vector3.Cross(Vector3.up, direcaoGol).normalized;
+        Vector3 vetorFinal = (direcaoDrible + direcaoGol * 0.4f).normalized;
 
-            if (distAmigo < distanciaAtualDaBola - 0.5f) {
-                return false; 
-            }
+        AplicarForcaNaBola(vetorFinal, stats.kickPower * 0.5f, "Drible ativado! Distância crítica atingida.", "magenta");
+        nextActionTime = Time.time + 0.7f;
+    }
+
+    void ExecutarChuteDireto() {
+        Vector3 direcao = (golAtaque.position - bola.position).normalized;
+        AplicarForcaNaBola(direcao, stats.kickPower, "Caminho limpo! Chute força máxima.", "red");
+        nextActionTime = Time.time + 1.2f;
+    }
+
+    void AplicarForcaNaBola(Vector3 direcao, float forca, string logMsg, string logCor) {
+        Debug.Log($"<color={logCor}>[IA {stats.nomePersonagem}]</color> {logMsg}");
+
+        Rigidbody rbBola = bola.GetComponentInParent<Rigidbody>();
+        if (rbBola != null) {
+            rbBola.linearVelocity = Vector3.zero;
+            rbBola.angularVelocity = Vector3.zero;
+            direcao.y = 0.15f; 
+            rbBola.AddForce(direcao * forca, ForceMode.Impulse);
         }
-        return true; 
+        estadoAtual = AIState.CHASE_BALL;
     }
 
-    void DefenderGol() {
-        Vector3 alvo = golDefesa.position + (bola.position - golDefesa.position).normalized * 5f;
-        motor.SetTarget(alvo);
-        if (distanciaAtualDaBola < 15f) { 
-            motor.SetTarget(bola.position);
-            if (distanciaAtualDaBola <= distanciaDoChute) ChutarProGol(); 
-        }
-    }
-
-    void DecidirComBola() {
-        float distGol = Vector3.Distance(transform.position, golAtaque.position);
-
-        if (distGol < 35f) { 
-            ChutarProGol();
-        }
-        else {
-            FootballBrain amigoLivre = ProcurarAmigoLivre();
-            if (amigoLivre != null) {
-                PassarBola(amigoLivre);
-            } else {
-                ChutarPraFrente();
-            }
-        }
-    }
-
-    FootballBrain ProcurarAmigoLivre() {
-        FootballBrain melhor = null;
-        float melhorVantagem = -999f; 
-
-        foreach (var amigo in meusCompanheiros) {
-            if (amigo == null) continue;
-
-            float distAmigo = Vector3.Distance(transform.position, amigo.transform.position);
-            
-            if (distAmigo < 4f || distAmigo > 60f) continue;
-
-            float minhaDistGol = Vector3.Distance(transform.position, golAtaque.position);
-            float amigoDistGol = Vector3.Distance(amigo.transform.position, golAtaque.position);
-            float vantagem = minhaDistGol - amigoDistGol;
-
-            if (vantagem > -5.0f) { 
-                 Vector3 dir = (amigo.transform.position - transform.position).normalized;
-                 Vector3 origem = transform.position + (Vector3.up * 0.5f) + (dir * 0.8f);
-                 
-                 Debug.DrawRay(origem, dir * (distAmigo - 1.0f), Color.yellow);
-
-                 RaycastHit hit;
-                 if (Physics.Raycast(origem, dir, out hit, distAmigo - 1.0f)) {
-                     FootballBrain amigoAtingido = hit.collider.GetComponentInParent<FootballBrain>();
-                     if (hit.collider.CompareTag("Bola") || amigoAtingido == amigo) {
-                         if (vantagem > melhorVantagem) {
-                             melhorVantagem = vantagem;
-                             melhor = amigo;
-                         }
-                     }
-                 } else {
-                     if (vantagem > melhorVantagem) {
-                         melhorVantagem = vantagem;
-                         melhor = amigo;
-                     }
-                 }
-            }
-        }
-        return melhor;
-    }
-
-    void PassarBola(FootballBrain alvo) {
-        Rigidbody rbBola = bola.GetComponent<Rigidbody>();
-        if (rbBola) {
-            string msg = $"PASSE PARA {alvo.stats.nomePersonagem}";
-            ultimaDecisao = msg;
-            Debug.Log($"<color=cyan>{msg}</color>"); 
-            Debug.DrawLine(transform.position, alvo.transform.position, Color.cyan, 2.0f);
-            
-            Vector3 dir = (alvo.transform.position - bola.position).normalized;
-            rbBola.AddForce(dir * (stats.kickPower * 0.8f), ForceMode.Impulse); 
-            nextActionTime = Time.time + cooldownPasse;
-        }
-    }
-    
-    void ChutarProGol() {
-        Rigidbody rbBola = bola.GetComponent<Rigidbody>();
-        if (rbBola) {
-            ultimaDecisao = "CHUTE AO GOL!";
-            Debug.Log($"<color=red>{ultimaDecisao}</color>"); 
-            Vector3 dir = (golAtaque.position - bola.position).normalized;
-            Vector3 erro = Random.insideUnitSphere * (1f - (stats.precisao / 100f));
-            erro.y = 0;
-            rbBola.AddForce((dir + erro).normalized * stats.kickPower, ForceMode.Impulse);
-            nextActionTime = Time.time + 0.8f;
-        }
-    }
-
-    void ChutarPraFrente() {
-        Rigidbody rbBola = bola.GetComponent<Rigidbody>();
-        if (rbBola) {
-            ultimaDecisao = "DRIBLE";
-            Debug.Log($"<color=yellow>{ultimaDecisao}</color>"); 
-            Vector3 dir = (golAtaque.position - bola.position).normalized;
-            rbBola.AddForce(dir * (stats.kickPower * 0.4f), ForceMode.Impulse);
-            nextActionTime = Time.time + 0.5f;
-        }
-    }
-
-    bool IsTimeCasa() {
-        if (golDefesa == null) return true;
-        return golDefesa.position.x < 0; 
-    }
-    
-    void OnDrawGizmos() {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, distanciaDoChute);
-    }
+    void PensarTaticamente() { }
+    Vector3 CalcularVetorRepulsao() { return Vector3.zero; }
+    void DecidirGoleiro() { }
+    void ComportamentoSegurarBola() { }
+    bool VerificarSeSouOMaisProximo() { return true; }
+    bool IsTimeCasa() { return this.CompareTag("CASA"); }
+    FootballBrain ProcurarAmigoLivre() { return null; }
 }

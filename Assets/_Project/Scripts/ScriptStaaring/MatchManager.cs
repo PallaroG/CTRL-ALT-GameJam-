@@ -6,7 +6,7 @@ public class MatchManager : MonoBehaviour {
     public static MatchManager Instance; 
 
     [Header("Configuração da Partida")]
-    public float tempoDePartida = 120f; // Mantive seus 120 segundos
+    public float tempoDePartida = 120f; 
     private float tempoAtual;
     private bool jogoAcabou = false;
 
@@ -28,6 +28,9 @@ public class MatchManager : MonoBehaviour {
     private int placarVisitante = 0; 
     private Vector3 posicaoInicialBola;
 
+    private List<FootballBrain> jogadoresCasa = new List<FootballBrain>();
+    private List<FootballBrain> jogadoresVisitante = new List<FootballBrain>();
+
     void Awake() { Instance = this; }
 
     void Start() {
@@ -46,8 +49,15 @@ public class MatchManager : MonoBehaviour {
             if(UIManager.Instance.painelFimJogo) UIManager.Instance.painelFimJogo.SetActive(false);
         }
 
-        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda); 
-        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita); 
+        jogadoresCasa.Clear();
+        jogadoresVisitante.Clear();
+
+        // --- MUDANÇA: Agora passamos a Tag correspondente a cada time ---
+        // Casa: Nasce na esquerda, ataca a direita, defende a esquerda
+        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
+        
+        // Visitante: Nasce na direita, ataca a esquerda, defende a direita
+        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
         
         Debug.Log("APITA O ÁRBITRO! BOLA ROLANDO!");
     }
@@ -69,30 +79,29 @@ public class MatchManager : MonoBehaviour {
                            placarVisitante > placarCasa ? "VISITANTE VENCEU!" : "EMPATE!";
         if (UIManager.Instance) UIManager.Instance.MostrarFimDeJogo(resultado);
         
-        // Trava a bola
         if(bola) bola.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    // --- SPAWN ATUALIZADO COM SISTEMA DE TIME ---
-    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa) {
-        List<FootballBrain> timeAtual = new List<FootballBrain>();
-
-        // Fase 1: Cria todo mundo
+    // --- MUDANÇA: A função agora aceita a tag do time como parâmetro ---
+    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
+        
         for (int i = 0; i < elenco.Count; i++) {
             if (i >= posicoes.Length) break;
 
-            GameObject p = Instantiate(prefabJogador, posicoes[i].position, Quaternion.identity);
+            GameObject p = Instantiate(prefabJogador, posicoes[i].position, posicoes[i].rotation);
             p.name = elenco[i].nomePersonagem;
+            
+            // --- AQUI ESTÁ A MÁGICA: Atribui a tag dinamicamente ---
+            p.tag = tagDoTime; 
             
             FootballBrain brain = p.GetComponent<FootballBrain>();
             if (brain != null) {
-                timeAtual.Add(brain);
+                listaInstancias.Add(brain);
             }
         }
 
-        // Fase 2: Apresenta os amigos (Passa a lista 'timeAtual')
-        for (int i = 0; i < timeAtual.Count; i++) {
-            timeAtual[i].Initialize(elenco[i], bola, ataque, defesa, timeAtual);
+        for (int i = 0; i < listaInstancias.Count; i++) {
+            listaInstancias[i].Initialize(elenco[i], bola, ataque, defesa, listaInstancias);
         }
     }
 
@@ -105,16 +114,48 @@ public class MatchManager : MonoBehaviour {
         if (UIManager.Instance != null) {
             UIManager.Instance.AtualizarPlacar(placarCasa, placarVisitante);
         }
-        Invoke("ResetarBola", 2.0f);
+        
+        Rigidbody rb = bola.GetComponent<Rigidbody>();
+        if (rb) rb.isKinematic = true;
+
+        Invoke("ResetarCampo", 2.0f);
     }
 
-    void ResetarBola() {
-        if (bola == null || jogoAcabou) return;
-        bola.position = posicaoInicialBola;
-        Rigidbody rb = bola.GetComponent<Rigidbody>();
-        if (rb != null) {
-            rb.linearVelocity = Vector3.zero; 
-            rb.angularVelocity = Vector3.zero;
+    void ResetarCampo() {
+        if (jogoAcabou) return;
+        
+        if (bola != null) {
+            bola.position = posicaoInicialBola;
+            Rigidbody rb = bola.GetComponent<Rigidbody>();
+            if (rb != null) {
+                rb.isKinematic = false;
+                rb.linearVelocity = Vector3.zero; 
+                rb.angularVelocity = Vector3.zero;
+            }
+        }
+
+        ResetarPosicoesDoTime(jogadoresCasa, spawnsCasa);
+        ResetarPosicoesDoTime(jogadoresVisitante, spawnsVisitante);
+        
+        Debug.Log("BOLA NO CENTRO, RECOMEÇA O JOGO!");
+    }
+
+    void ResetarPosicoesDoTime(List<FootballBrain> time, Transform[] spawns) {
+        for (int i = 0; i < time.Count; i++) {
+            if (i < spawns.Length && time[i] != null) {
+                
+                time[i].transform.position = spawns[i].position;
+                time[i].transform.rotation = spawns[i].rotation;
+                
+                // O AIState agora será reconhecido globalmente
+                time[i].estadoAtual = AIState.RETURN_POSITION;
+                
+                Rigidbody rb = time[i].GetComponent<Rigidbody>();
+                if(rb) {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+            }
         }
     }
 }

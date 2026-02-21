@@ -12,12 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
   m_Name: Alien
   m_EditorClassIdentifier: 
-  fotoDoPersonagem: {fileID: 116016577, guid: 79a484ae3236cd7409cba84c42166a87, type: 3}
   nomePersonagem: Alien
+  fotoDoPersonagem: {fileID: 116016577, guid: 79a484ae3236cd7409cba84c42166a87, type: 3}
   corRepresentativa: {r: 1, g: 1, b: 1, a: 0}
   visualModel: {fileID: 0}
-  maxSpeed: 20
-  turnSpeed: 10
-  mass: 2
+  funcaoTatica: 0
+  taticaX: 0.299
+  taticaZ: 0.369
+  mass: 1.5
+  maxSpeed: 30
+  agilidade: 60
+  aceleracao: 90
+  precisao: 70
   kickPower: 60
-  kickCooldown: 1.2
+  podeVoar: 0
+  alturaDeVoo: 3

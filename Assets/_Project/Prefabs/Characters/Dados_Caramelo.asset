@@ -17,6 +17,8 @@ MonoBehaviour:
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
   funcaoTatica: 1
+  taticaX: 0.489
+  taticaZ: 0.722
   mass: 3
   maxSpeed: 70
   agilidade: 60
