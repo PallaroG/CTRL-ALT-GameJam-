@@ -205,14 +205,17 @@ MonoBehaviour:
   bola: {fileID: 0}
   golAtaque: {fileID: 0}
   golDefesa: {fileID: 0}
-  meusCompanheiros: []
   raioDeDeteccao: 115
+  larguraDoSensor: 4
   distanciaChuteArcade: 4.3
-  distanciaParaDriblar: 8.31
-  forcaMinima: 0.05
-  forcaMaxima: 0.4
+  distanciaParaDriblar: 15
+  forcaMinima: 0.141
+  forcaMaxima: 0.89
+  zonaDeFrenagem: 3
+  chanceDePassar: 100
+  distanciaBuscaCompanheiro: 60
+  mapaMentalDoTime: []
   estadoAtual: 0
-  distanciaAtualDaBola: 0
 --- !u!1 &8938009216277398316
 GameObject:
   m_ObjectHideFlags: 0

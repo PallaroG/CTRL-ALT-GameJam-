@@ -1469,8 +1469,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999998, y: 0.3419607, z: 1}
+  m_Center: {x: 0.000022348986, y: -0.3290205, z: 1.7092629e-10}
 --- !u!23 &490651460
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1576,7 +1576,7 @@ MonoBehaviour:
   timeCasa:
   - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
   timeVisitante:
-  - {fileID: 11400000, guid: a1f0720e79e77854e854b44f05b5e82a, type: 2}
+  - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
   spawnsCasa:
   - {fileID: 1208266907}
   - {fileID: 1433406177}
@@ -2386,8 +2386,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999998, y: 0.3412477, z: 1}
+  m_Center: {x: -1.2247136e-13, y: 0.32937732, z: 2.9404846e-15}
 --- !u!23 &1050751318
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2577,7 +2577,7 @@ Transform:
   m_GameObject: {fileID: 1161761650}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.512, y: 0.12, z: -0.792}
+  m_LocalPosition: {x: -1.246, y: 0.12, z: -0.122}
   m_LocalScale: {x: 0.084671535, y: 0.056914307, z: 0.10873357}
   m_ConstrainProportionsScale: 0
   m_Children: []
