@@ -1,18 +1,10 @@
-using System;
 using UnityEngine;
 
 public class finalDaFilaScript : MonoBehaviour
 {
-    private PersonagemFila personagemFila;
-    [NonSerialized]public string personagemName;
+    public GameObject Character;
     void OnTriggerEnter(Collider other)
     {
-        personagemFila = other.GetComponent<PersonagemFila>();
-
-        if (personagemFila != null)
-        {
-            Debug.Log(personagemFila.nomeDoPersonagem);
-            personagemName = personagemFila.nomeDoPersonagem;
-        }
+        Debug.Log("guarda o Ultimo da fila");
     }
 }
