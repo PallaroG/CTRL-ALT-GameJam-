@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
+  m_Name: Dados_Pombo_V
+  m_EditorClassIdentifier: 
+  nomePersonagem: Pombo
+  fotoDoPersonagem: {fileID: 1073201347, guid: a8c9fa63c7d5b584f993413c34525a80, type: 3}
+  corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
+  visualModel: {fileID: 0}
+  funcaoTatica: 0
+  mass: 1
+  maxSpeed: 25
+  agilidade: 80
+  aceleracao: 150
+  precisao: 71.5
+  kickPower: 130
+  podeVoar: 0
+  alturaDeVoo: 2

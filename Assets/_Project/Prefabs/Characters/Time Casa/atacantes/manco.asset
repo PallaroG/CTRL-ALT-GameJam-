@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: Dados_Caramelo
+  m_Name: manco
   m_EditorClassIdentifier: 
-  nomePersonagem: Caramelo
-  fotoDoPersonagem: {fileID: -1983580744, guid: c01e25791b21fac4ba2cf454a860711e, type: 3}
+  nomePersonagem: Fiat Uno
+  fotoDoPersonagem: {fileID: -1969850886, guid: ca15dba1624550541a0125ed656e5b47, type: 3}
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  funcaoTatica: 0
-  taticaX: 0.126
-  taticaZ: 0.503
-  mass: 3
-  maxSpeed: 20
-  agilidade: 60
-  aceleracao: 160
-  precisao: 30
+  funcaoTatica: 1
+  mass: 10
+  maxSpeed: 25
+  agilidade: 25
+  aceleracao: 170
+  precisao: 20
   kickPower: 200
   podeVoar: 0
   alturaDeVoo: 3

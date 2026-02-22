@@ -1589,8 +1589,24 @@ MonoBehaviour:
   golDireita: {fileID: 1050751316}
   prefabJogador: {fileID: 8446920070214480219, guid: 5e57c62556478ca488bd78140edaed21, type: 3}
   prefabGoleiro: {fileID: 8446920070214480219, guid: ba7b4dcdd2adfd344a3b2fdd3891871a, type: 3}
-  timeCasa: []
-  timeVisitante: []
+  timeCasa:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  timeVisitante:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spawnsCasa:
   - {fileID: 1433406177}
   - {fileID: 1208266907}
