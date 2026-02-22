@@ -148,9 +148,13 @@ public class MatchManager : MonoBehaviour {
     void ApitarFimDeJogo() {
         jogoAcabou = true;
         tempoAtual = 0;
-        string resultado = placarCasa > placarVisitante ? "CASA VENCEU!" : 
-                           placarVisitante > placarCasa ? "VISITANTE VENCEU!" : "EMPATE!";
-        if (UIManager.Instance) UIManager.Instance.MostrarFimDeJogo(resultado);
+        
+        // Define quem ganhou: 0 = Empate, 1 = Casa, 2 = Visitante
+        int resultadoFinal = 0; 
+        if (placarCasa > placarVisitante) resultadoFinal = 1;
+        else if (placarVisitante > placarCasa) resultadoFinal = 2;
+
+        if (UIManager.Instance) UIManager.Instance.MostrarFimDeJogo(resultadoFinal);
         
         if(bola) bola.GetComponent<Rigidbody>().isKinematic = true;
 
