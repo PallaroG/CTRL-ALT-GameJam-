@@ -16,7 +16,7 @@ MonoBehaviour:
   fotoDoPersonagem: {fileID: 1510005861, guid: 4cbb1702e909d094c9827f3ea0fc8857, type: 3}
   corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
   visualModel: {fileID: 0}
-  funcaoTatica: 1
+  funcaoTatica: 0
   mass: 10
   maxSpeed: 25
   agilidade: 25

@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 77708458}
   - component: {fileID: 77708457}
   m_Layer: 0
-  m_Name: SpawnV 6
+  m_Name: SpawnV 6 meio esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 168353809}
   - component: {fileID: 168353808}
   m_Layer: 0
-  m_Name: SpawnC (5)
+  m_Name: SpawnC (5) zaga dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1590,43 +1590,59 @@ MonoBehaviour:
   prefabJogador: {fileID: 8446920070214480219, guid: 5e57c62556478ca488bd78140edaed21, type: 3}
   prefabGoleiro: {fileID: 8446920070214480219, guid: ba7b4dcdd2adfd344a3b2fdd3891871a, type: 3}
   timeCasa:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 635f18c8ffcfdba438949eacf25ec533, type: 2}
+  - {fileID: 11400000, guid: 0899a2abd2cb8294f913c292af057557, type: 2}
+  - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
+  - {fileID: 11400000, guid: 54d8caaca1a5c8f46b1d72d64fb19f35, type: 2}
+  - {fileID: 11400000, guid: 3bdb8ab7110da814fa4c3d16cc932022, type: 2}
+  - {fileID: 11400000, guid: 6b057673841f70447902d00cbce15636, type: 2}
+  - {fileID: 11400000, guid: e9f3e69156dd2b84abd0f8c51dd748c6, type: 2}
+  - {fileID: 11400000, guid: e81f3abc1e6f36a4ab4b5b940ab590d7, type: 2}
   timeVisitante:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 677d1e480b982894f97ad366dcaf27b1, type: 2}
+  - {fileID: 11400000, guid: 000e85f99eceb7d4f80f3251bab1f7c6, type: 2}
+  - {fileID: 11400000, guid: b65a151812596144696ef1f5139e811a, type: 2}
+  - {fileID: 11400000, guid: d157c275c0387e447a0cdd4149a3aa15, type: 2}
+  - {fileID: 11400000, guid: 3199f066803a01f4285860dfe06d2d2e, type: 2}
+  - {fileID: 11400000, guid: 386aa19abaa66d04b8463f0d56e89913, type: 2}
+  - {fileID: 11400000, guid: dd1088b5dfbe11641ba1d159ce0576e6, type: 2}
+  - {fileID: 11400000, guid: c3cfc7e994e2c3a4a9b2aae3cc01ceb4, type: 2}
   spawnsCasa:
   - {fileID: 1433406177}
   - {fileID: 1208266907}
   - {fileID: 1161761651}
   - {fileID: 1282591456}
+  - {fileID: 1315645135}
+  - {fileID: 77708456}
   - {fileID: 1538837041}
   - {fileID: 1238932931}
-  - {fileID: 77708456}
-  - {fileID: 1315645135}
-  coordenadasCasa: []
+  coordenadasCasa:
+  - {x: 0, y: 0.5}
+  - {x: 0.75, y: 0.5}
+  - {x: 0.45, y: 0.85}
+  - {x: 0.3, y: 0.65}
+  - {x: 0.45, y: 0.15}
+  - {x: 0.3, y: 0.35}
+  - {x: 0.1, y: 0.35}
+  - {x: 0.1, y: 0.65}
   spawnsVisitante:
   - {fileID: 758056208}
   - {fileID: 978533860}
   - {fileID: 1997978528}
   - {fileID: 848769204}
   - {fileID: 2119557185}
+  - {fileID: 1610274332}
   - {fileID: 1976325347}
   - {fileID: 168353807}
-  - {fileID: 1610274332}
-  coordenadasVisitante: []
+  coordenadasVisitante:
+  - {x: 0, y: 0.5}
+  - {x: 0.85, y: 0.5}
+  - {x: 0.65, y: 0.15}
+  - {x: 0.35, y: 0.35}
+  - {x: 0.65, y: 0.85}
+  - {x: 0.35, y: 0.65}
+  - {x: 0.15, y: 0.35}
+  - {x: 0.15, y: 0.65}
 --- !u!1 &645717643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,7 +2025,7 @@ GameObject:
   - component: {fileID: 848769206}
   - component: {fileID: 848769205}
   m_Layer: 0
-  m_Name: SpawnC (7)
+  m_Name: SpawnC (7) meio esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,7 +2731,7 @@ GameObject:
   - component: {fileID: 1161761653}
   - component: {fileID: 1161761652}
   m_Layer: 0
-  m_Name: SpawnV 2
+  m_Name: SpawnV 2 lateral dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2966,7 +2982,7 @@ GameObject:
   - component: {fileID: 1238932933}
   - component: {fileID: 1238932932}
   m_Layer: 0
-  m_Name: SpawnV 5
+  m_Name: SpawnV 5 zaga Dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3074,7 +3090,7 @@ GameObject:
   - component: {fileID: 1282591458}
   - component: {fileID: 1282591457}
   m_Layer: 0
-  m_Name: SpawnV 3
+  m_Name: SpawnV 3 meio dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3182,7 +3198,7 @@ GameObject:
   - component: {fileID: 1315645137}
   - component: {fileID: 1315645136}
   m_Layer: 0
-  m_Name: SpawnV 7
+  m_Name: SpawnV 7 lateral esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4212,7 +4228,7 @@ GameObject:
   - component: {fileID: 1538837043}
   - component: {fileID: 1538837042}
   m_Layer: 0
-  m_Name: SpawnV 4
+  m_Name: SpawnV 4 zaga esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4478,7 +4494,7 @@ GameObject:
   - component: {fileID: 1610274334}
   - component: {fileID: 1610274333}
   m_Layer: 0
-  m_Name: SpawnC (6)
+  m_Name: SpawnC (6) meio dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4881,7 +4897,7 @@ GameObject:
   - component: {fileID: 1976325349}
   - component: {fileID: 1976325348}
   m_Layer: 0
-  m_Name: SpawnC (4)
+  m_Name: SpawnC (4) zaga esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4989,7 +5005,7 @@ GameObject:
   - component: {fileID: 1997978530}
   - component: {fileID: 1997978529}
   m_Layer: 0
-  m_Name: SpawnC (2)
+  m_Name: SpawnC (2) lateral esq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5382,7 +5398,7 @@ GameObject:
   - component: {fileID: 2119557187}
   - component: {fileID: 2119557186}
   m_Layer: 0
-  m_Name: SpawnC (3)
+  m_Name: SpawnC (3) lateral dir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
