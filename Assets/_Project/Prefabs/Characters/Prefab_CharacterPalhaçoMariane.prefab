@@ -478,17 +478,23 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: '[anim=tremendinho]Boa tarde fera![/anim]'
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Cabe mais um para o seu cobi\xE7ado time?[/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Eu gostaria de participar tamb\xE9m, o jeito que voc\xEA
+      gere \xE9 bem SLICED!\nAdoro isso! [/anim]"
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]E gostaria de falar que aquele rapaz indigena tamb\xE9m
+      tem bastante potencial, n\xE3o gostaria\nde perd\xEA-lo de vista..[/anim]"
+    autoNextNode: 4
+    choices: []
+  - text: "[anim=tremendinho]Por outro lado, \xE9 dif\xEDcil de perder aquele \u2018grand\xE3o
+      da Kasinski\u2019, esse eu n\xE3o quero passar na rua!! Ele n\xE3o se cuida..[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &7473941146221193335
 GameObject:

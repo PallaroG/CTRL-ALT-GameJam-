@@ -772,16 +772,25 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]\xC9 um absurdo esta institui\xE7\xE3o!![/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
+  - text: "[anim=tremendinho]S\xF3 tem FEZES aqui! FEZES![/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Estou a 1h esperando ser atendido e at\xE9 agora s\xF3
+      senti o sabor de poder jogar um fute[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Mas calma Pai, agora voc\xEA encontrou o fela perfeito!![/anim]"
+    autoNextNode: 1
+    choices: []
+  - text: "[anim=tremendinho]Eu vi que voc\xEA j\xE1 conheceu o Victor, meu flanelinha
+      favorito!! \xC9 um rapaz muito bom,\nadoraria jogar com ele.[/anim]"
+    autoNextNode: 1
+    choices: []
+  - text: "[anim=tremendinho]Mas n\xE3o me ponha para ficar do lado desses cariocas
+      safados...[/anim]"
     autoNextNode: 1
     choices: []
 --- !u!1 &7209251777191349837

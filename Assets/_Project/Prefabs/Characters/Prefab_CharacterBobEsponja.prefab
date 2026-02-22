@@ -478,17 +478,21 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: '[anim=tremendinho]Eu Estou Pronto!!![/anim]'
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Para jogar um fute com geral, sou experiente quando
+      se trata de ca\xE7ar \xE1guas vivas!![/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: '[anim=tremendinho]Deve
+
+      ser a mesma coisa nesse caso![/anim]'
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]S\xF3 n\xE3o ponha esse tal de [/anim] [anim=bravo]Lula[/anim],
+      [anim=tremendinho] parece que n\xE3o bate muito bem.\u201D[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &2105757584795503674
 GameObject:

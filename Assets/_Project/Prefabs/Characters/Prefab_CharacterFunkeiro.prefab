@@ -484,17 +484,21 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]E ai truta, suave na nave tioz\xE3o!?[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]\xC9 o seguinte, sou foda em todas as possibilidades,
+      meu sonho \xE9 conhecer o Neymar e tirar\numa onda com ele hahahaha!![/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Quando eu ficar rico tu fica tamb\xE9m, t\xE1 ligado?
+      Pode botar meu nome na lista e do [anim=feliz]Carioca[/anim] [anim=tremendinho]\ntamb\xE9m
+      que ele \xE9 firmeza![/anim]"
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]S\xF3 ficar esperto com uns [/anim] [anim=bravo]mendigos[/anim]
+      [anim=tremendinho] safados que est\xE3o por a\xED...[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &8523003279531846094
 GameObject:

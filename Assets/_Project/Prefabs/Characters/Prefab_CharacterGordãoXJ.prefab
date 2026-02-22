@@ -95,17 +95,25 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: '[anim=tremendinho]Oi titio!![/anim]'
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Posso participar dessa jogatina tamb\xE9m?[/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Gosto muito de futebol, me divertia antes quando jogava,
+      as outras crian\xE7as riam de mim\npor eu ser maior, mas eu quero mudar isso!
+      Para mim, apar\xEAncia n\xE3o vale de nada se o seu\nesp\xEDrito est\xE1 corrompido![/anim]"
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=bravo]Que nem aquele Palha\xE7o, me julga por eu ser maior, c\xEA
+      \xE9 louco tio.[/anim]"
+    autoNextNode: 4
+    choices: []
+  - text: "[anim=tremendinho]Mas um que me ajuda\nbastante \xE9 o[/anim] [anim=feliz]Marcio![/anim]
+      [anim=tremendinho] Ele me d\xE1 pizzas \xE0 vontade. \xC9 meio maluquinho com
+      umas coisas de\nterra plana, mas eu gosto dele...[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &2987975694723125403
 GameObject:

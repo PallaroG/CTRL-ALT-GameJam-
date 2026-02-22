@@ -292,18 +292,20 @@ MonoBehaviour:
     choices: []
   - text: "[anim=tremendinho]Eu sei que n\xE3o aparento muita habilidade, mas ainda
       tenho for\xE7a de luta!![/anim]"
-    autoNextNode: 1
+    autoNextNode: 2
     choices: []
   - text: "[anim=tremendinho]Posso surpreender o capit\xE3o, s\xF3 pe\xE7o uma oportunidade!![/anim]"
-    autoNextNode: 1
+    autoNextNode: 3
     choices: []
-  - text: "[anim=tremendinho]Gostaria de dizer que n\xE3o gosto muito de mancos,
-      parece que tentam me copiar, mas n\xE3o\nfazem direito...[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Gostaria de dizer que n\xE3o gosto muito de [/anim]
+      [anim=bravo] mancos,[/anim] [anim=tremendinho]parece que tentam me copiar,
+      mas n\xE3o\nfazem direito...[/anim]"
+    autoNextNode: 4
     choices: []
-  - text: "[anim=tremendinho]Mas se tiver algum carro para ajudar na minha locomo\xE7\xE3o,
-      seria muito bem vindo haha.\u201D[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Mas se tiver algum [/anim] [anim=feliz]carro[/anim]
+      [anim=tremendinho]para ajudar na minha locomo\xE7\xE3o, seria muito bem vindo
+      haha.\u201D[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &4224157708525913050
 GameObject:

@@ -197,17 +197,25 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Pois n\xE3o meu amigo[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Meu nome \xE9 Jean Arisquadison Fernando Segundo, mas
+      pode me chamar de LULA\nEncantado![/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Eu venho de um segmento art\xEDstico muito forte derivado
+      de minha fam\xEDlia, mas no momento\nn\xE3o tenho conseguido muitos papeis,
+      por isso vim conferir a possibilidade de entrar no time.[/anim]"
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]N\xE3o gosto de pepinos, caranguejos e principalmente
+      de [anim=bravo] ESPONJAS[/anim], desculpe...\n[anim=gay]Adorei aquele rapaz
+      sentado logo ali acho que ele \xE9 um E.T [/anim]"
+    autoNextNode: 4
+    choices: []
+  - text: '[anim=gay]Qualquer coisa estarei por ai, caso precise viu fofinho... [/anim]'
+    autoNextNode: 0
     choices: []
 --- !u!1 &2735579808780300267
 GameObject:
@@ -781,6 +789,63 @@ MonoBehaviour:
       saturation: 1.8
       brightness: 2.19
       offset: 2.7
+  - profileName: gay
+    typewriter:
+      enabled: 1
+      charsPerSecond: 34
+      randomDelay: 0
+      delayRange: {x: 0, y: 0}
+    wave:
+      enabled: 1
+      amplitude: 0.9
+      frequency: 24.61
+      speed: 1
+    shake:
+      enabled: 1
+      magnitude: 1.94
+      speed: 1.21
+    bounce:
+      enabled: 1
+      height: 12.16
+      speed: 0.1
+    scale:
+      enabled: 0
+      scaleMultiplier: 0
+      speed: 0
+    rotate:
+      enabled: 0
+      angle: 0
+      speed: 0
+    jitter:
+      enabled: 0
+      magnitude: 0
+      speed: 0
+    impact:
+      enabled: 1
+      loop: 1
+      impactDistance: 3.72
+      impactDuration: 13.11
+      impactCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    perspective:
+      enabled: 0
+      depthCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      depthScale: 0
+    rainbow:
+      enabled: 1
+      speed: 0
+      saturation: 53.8
+      brightness: -123
+      offset: 40
   audioSource: {fileID: 0}
   charSound: {fileID: 0}
   charSoundPitchVariation: 0.1

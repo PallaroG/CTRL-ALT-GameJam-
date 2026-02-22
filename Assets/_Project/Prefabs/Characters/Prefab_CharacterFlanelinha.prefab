@@ -580,17 +580,24 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: '[anim=tremendinho]Opa cumpadi![/anim]'
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: '[anim=tremendinho]Eu sou foda no fute, aprendi com todos anos de esquiva
+      e persistencia sendo flanela em
+
+      SP![/anim]'
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Os alta patente chegam l\xE1 na frente do Ipiranga e
+      eu j\xE1 to l\xE1 esperando, bato no peito e vou\nAcredite em mim, s\xE3o os
+      caras que mais me ajudam![/anim]"
+    autoNextNode: 3
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Mas c\xEA \xE9 louco, [/anim] eu vi esse [anim=bravo]Uno
+      [/anim] [anim=tremendinho]entrando aqui. N\xE3o \xE9 poss\xEDvel, esse carro
+      sempre me d\xE1\ntrampo, n\xE3o curto n\xE3o!\u201D[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &6837391362514146768
 GameObject:

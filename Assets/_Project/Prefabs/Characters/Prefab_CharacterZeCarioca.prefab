@@ -95,16 +95,20 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Opa Merm\xE3o, tudo em cima?[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
+  - text: "[anim=tremendinho]Bora jogar um fute, curto muito n\xE9, sou do Rio...
+      O maior eixtado do pa\xEDs inteiro papo reto!![/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Goxto do mano do funk, ele \xE9 sinixtro! Manda umax
+      bola maneiraix![/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]S\xF3 fico bolado com ox mano de SP, \xE9 tudo narix
+      empinado e n\xE3o sabe fazer nada moro?\nEnt\xE3o j\xE1 \xE9, s\xF3 chamar
+      que o pai tanka!\u201D[/anim]"
     autoNextNode: 1
     choices: []
 --- !u!1 &1420985149829377237

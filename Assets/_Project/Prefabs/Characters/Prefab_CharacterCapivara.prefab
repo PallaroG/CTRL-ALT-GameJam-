@@ -496,10 +496,11 @@ MonoBehaviour:
     autoNextNode: 3
     choices: []
   - text: "[anim=tremendinho]S\xF3 pe\xE7o que se puder, me coloque o mais distante
-      daquele ind\xEDgena, eu tenho medo do tamanho da fome dele..[/anim]"
+      daquele[/anim] [anim=bravo] ind\xEDgena [/anim], [anim=tremendinho] eu tenho
+      medo do tamanho da fome dele...[/anim]"
     autoNextNode: 4
     choices: []
-  - text: '[anim=tremendinho]Acho melhor ficar junto com pombos[/anim]'
+  - text: '[anim=tremendinho]Acho melhor ficar junto com[/anim] [anim=feliz]pombos[/anim]'
     autoNextNode: 0
     choices: []
 --- !u!1 &8209351892634191978

@@ -3,7 +3,6 @@ using UnityEngine;
 public class PersonagemFila : MonoBehaviour
 {
     public float velocidade = 3f;
-
     private Transform alvo;
     private bool movendo = false;
 

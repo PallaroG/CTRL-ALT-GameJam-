@@ -202,18 +202,19 @@ MonoBehaviour:
     choices: []
   - text: '[anim=tremendinho]Amigo, eu tenho muito o que mostrar ao mundo!! Qualquer
       coisa!![/anim]'
-    autoNextNode: 1
+    autoNextNode: 2
     choices: []
   - text: "[anim=tremendinho]Dou sempre tudo de mim para qualquer trabalho, s\xF3
       pe\xE7o um prato de comida[/anim]"
-    autoNextNode: 1
+    autoNextNode: 3
     choices: []
   - text: "[anim=tremendinho]e um pouco de sil\xEAncio a noite sem aqueles malditos
       funkeiros.[/anim]"
-    autoNextNode: 1
+    autoNextNode: 4
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]A companhia do meu fiel amigo Caramelo j\xE1 \xE9 o
+      suficiente.\u201D[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &4359295584002518983
 GameObject:

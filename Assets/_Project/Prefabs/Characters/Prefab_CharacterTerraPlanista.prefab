@@ -867,15 +867,28 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Voc\xEA est\xE1 vendo ? Esse formato... Sem partes convexas...
+      tudo plano, como deve ser...\nAh, tudo bem? Meu nome \xE9 Marcio[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
+  - text: "[anim=tremendinho]To aqui para provar que a Terra \xE9 pla.. Quero dizer,
+      provar meu valor no fute[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Gosto da ideia de estar em um est\xE1dio PLANO, sentir
+      o gramado e correr \xE0 vontade.\nQuero ver a cara das pessoas que discordam
+      de mim, na hora que eu fizer um gol!![/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Ahh e tem meu grande amigo tamb\xE9m, aquele que usa
+      uma moto para se locomover, ele \xE9\nmuito legal![/anim]"
+    autoNextNode: 1
+    choices: []
+  - text: '[anim=tremendinho]Eu troco pizzas com ele e ele me deixa falar sobre meu
+      assunto favorito...[/anim]'
+    autoNextNode: 1
+    choices: []
+  - text: "[anim=tremendinho]Mas n\xE3o gosto quando entra no papo de Extra-terrestres,
+      n\xE3o acredito nesse tipo de coisa\nfalsificada!\u201D[/anim]"
     autoNextNode: 1
     choices: []

@@ -484,17 +484,17 @@ MonoBehaviour:
   choiceButtonPrefab: {fileID: 0}
   startNode: 0
   nodes:
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
+  - text: "[anim=tremendinho]Oi,\nVim pelo churras da placa de an\xFAncio...[/anim]"
     autoNextNode: 1
     choices: []
-  - text: '[anim=tremendinho]hehehhehehehhehehehe[/anim]'
-    autoNextNode: 1
+  - text: "[anim=bravo]Se tiver que jogar, eu tiro seu cora\xE7\xE3o e coloco em
+      um frasco para observar sua\nputrefa\xE7\xE3o e a\xED sim chuta-lo ao gol...[/anim]"
+    autoNextNode: 2
     choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
-    choices: []
-  - text: '[anim=tremendinho]uh uh, eu sou o... uh, CJ[/anim]'
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Aff, pode me colocar no meio do campo mesmo, sou alta.
+      Acho que consigo pelo menos\nchutar umas caras e ver um pouco de sangue em
+      tempo real...\u201D[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &9119335768628975640
 GameObject:
