@@ -21,7 +21,7 @@ MonoBehaviour:
   maxSpeed: 25
   agilidade: 25
   aceleracao: 170
-  precisao: 20
-  kickPower: 200
+  precisao: 61.7
+  kickPower: 150
   podeVoar: 0
   alturaDeVoo: 3
