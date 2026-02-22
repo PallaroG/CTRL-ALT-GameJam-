@@ -20,7 +20,7 @@ public class GoleiroBrain : MonoBehaviour {
     [Header("Reflexos (O Delay de Golo)")]
     [Tooltip("Quão rápido ele acompanha a bola. Valores menores = maior delay e mais fácil de fazer gol!")]
     public float velocidadeDeReacao = 3.5f; 
-    private Vector3 alvoDeMovimento; // A posição atrasada que o goleiro está de fato perseguindo
+    private Vector3 alvoDeMovimento; 
 
     [Header("Debug")]
     public AIState estadoAtual = AIState.RETURN_POSITION;
@@ -40,7 +40,7 @@ public class GoleiroBrain : MonoBehaviour {
 
         spawnInicial = transform.position;
         rotacaoInicial = transform.rotation;
-        alvoDeMovimento = transform.position; // Inicializa o alvo no próprio goleiro
+        alvoDeMovimento = transform.position; 
 
         Transform areaChild = golDefesa.Find("Area");
         if (areaChild != null) {
@@ -61,12 +61,10 @@ public class GoleiroBrain : MonoBehaviour {
         float distBolaGoleiro = Vector3.Distance(transform.position, bola.position);
         motor.LookAtTarget(bola.position);
 
-        // 1. A DEFESA MAGNÉTICA
         if (distBolaGoleiro <= distanciaDominio) {
             if (estadoAtual != AIState.WITH_BALL) {
                 estadoAtual = AIState.WITH_BALL;
                 tempoProximaAcao = Time.time + 1.5f; 
-                Debug.Log($"<color=blue>[GOLEIRO]</color> {stats.nomePersonagem} SEGURA FIRME!");
             }
 
             motor.SetMovement(transform.position, Vector3.zero, 0); 
@@ -91,7 +89,6 @@ public class GoleiroBrain : MonoBehaviour {
 
         if (estadoAtual == AIState.WITH_BALL) estadoAtual = AIState.IDLE;
 
-        // 2. A MANCHA (Sair aos pés se a bola invadir o seu Collider)
         bool bolaNaArea = false;
         if (zonaDeAtuacao != null) {
             Vector3 pontoMaisProximo = zonaDeAtuacao.ClosestPoint(bola.position);
@@ -103,23 +100,19 @@ public class GoleiroBrain : MonoBehaviour {
         if (bolaNaArea) {
             estadoAtual = AIState.CHASE_BALL;
             motor.SetMovement(bola.position, Vector3.zero, stats.maxSpeed);
-            // Atualiza o alvo atrasado para ele não se perder quando voltar pra baliza
             alvoDeMovimento = transform.position; 
             return;
         }
 
-        // 3. O TRÂNSITO COM DELAY DE REFLEXO
         estadoAtual = AIState.RETURN_POSITION;
         Vector3 posicaoDesejada;
         
         Rigidbody rbB = bola.GetComponentInParent<Rigidbody>();
         Vector3 velBola = rbB != null ? rbB.linearVelocity : Vector3.zero;
 
-        // Calcula a posição perfeita
         if (velBola.magnitude > 8.0f) {
             Vector3 pontoFuturo = bola.position + (velBola * 0.5f);
             posicaoDesejada = pontoFuturo;
-            Debug.DrawLine(transform.position, pontoFuturo, Color.cyan); 
         } else {
             Vector3 direcaoDaBola = (bola.position - golDefesa.position).normalized;
             float distBolaGol = Vector3.Distance(golDefesa.position, bola.position);
@@ -134,14 +127,10 @@ public class GoleiroBrain : MonoBehaviour {
             posicaoDesejada.y = transform.position.y; 
         }
 
-        // A MÁGICA DO DELAY: O alvo que o goleiro persegue tem um atraso em relação à posição perfeita
         alvoDeMovimento = Vector3.Lerp(alvoDeMovimento, posicaoDesejada, Time.deltaTime * velocidadeDeReacao);
-
-        Debug.DrawLine(transform.position, alvoDeMovimento, Color.yellow); 
 
         float distParaIdeal = Vector3.Distance(transform.position, alvoDeMovimento);
         if (distParaIdeal > 0.3f) {
-            // Persegue o "alvo atrasado" em vez da posição perfeita instantânea
             motor.SetMovement(alvoDeMovimento, Vector3.zero, stats.maxSpeed * 0.8f); 
         } else {
             motor.Stop();
@@ -156,7 +145,6 @@ public class GoleiroBrain : MonoBehaviour {
         if (rbBola != null) {
             rbBola.linearVelocity = Vector3.zero;
             rbBola.AddForce(direcao * stats.kickPower * 1.8f, ForceMode.Impulse); 
-            Debug.Log($"<color=green>[GOLEIRO]</color> {stats.nomePersonagem} isolou pro ataque!");
         }
     }
 

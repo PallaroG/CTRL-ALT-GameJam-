@@ -17,25 +17,26 @@ public class MatchManager : MonoBehaviour {
     
     [Header("Prefabs de Jogadores")]
     public GameObject prefabJogador; 
-    public GameObject prefabGoleiro; // NOVO: Prefab isolado do Goleiro
+    public GameObject prefabGoleiro; 
 
     [Header("Times")]
     public List<PlayerData> timeCasa; 
     public List<PlayerData> timeVisitante; 
 
-    [Header("Spawns")]
-    public Transform[] spawnsCasa;     
+    [Header("Spawns & Táticas (Casa)")]
+    public Transform[] spawnsCasa;  
+    public Vector2[] coordenadasCasa; 
+
+    [Header("Spawns & Táticas (Visitante)")]
     public Transform[] spawnsVisitante; 
+    public Vector2[] coordenadasVisitante;
 
     private int placarCasa = 0;      
     private int placarVisitante = 0; 
     private Vector3 posicaoInicialBola;
 
-    // Listas exclusivas para jogadores de linha
     private List<FootballBrain> jogadoresCasa = new List<FootballBrain>();
     private List<FootballBrain> jogadoresVisitante = new List<FootballBrain>();
-
-    // Variáveis para guardar os goleiros e poder resetá-los
     private GoleiroBrain goleiroCasaObj;
     private GoleiroBrain goleiroVisitanteObj;
 
@@ -60,10 +61,8 @@ public class MatchManager : MonoBehaviour {
         jogadoresCasa.Clear();
         jogadoresVisitante.Clear();
 
-        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
-        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
-        
-        Debug.Log("APITA O ÁRBITRO! BOLA ROLANDO!");
+        SpawnarTime(timeCasa, spawnsCasa, coordenadasCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
+        SpawnarTime(timeVisitante, spawnsVisitante, coordenadasVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
     }
 
     void Update() {
@@ -72,7 +71,6 @@ public class MatchManager : MonoBehaviour {
             tempoAtual -= Time.deltaTime;
             if(UIManager.Instance) UIManager.Instance.AtualizarTempo(tempoAtual);
             
-            // Define o "Caçador" apensa entre os jogadores de linha
             DefinirPapeisTaticos();
         } else {
             ApitarFimDeJogo();
@@ -113,11 +111,13 @@ public class MatchManager : MonoBehaviour {
         if(bola) bola.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
+    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Vector2[] coordenadasTaticas, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
         for (int i = 0; i < elenco.Count; i++) {
             if (i >= posicoes.Length) break;
 
-            // MÁGICA DE ARQUITETURA: Verifica se é Goleiro ou Linha antes de Instanciar
+            float tX = (i < coordenadasTaticas.Length) ? coordenadasTaticas[i].x : 0.5f;
+            float tZ = (i < coordenadasTaticas.Length) ? coordenadasTaticas[i].y : 0.5f;
+
             if (elenco[i].funcaoTatica == PosicaoTatica.Goleiro) {
                 GameObject p = Instantiate(prefabGoleiro, posicoes[i].position, posicoes[i].rotation);
                 p.name = elenco[i].nomePersonagem;
@@ -125,7 +125,6 @@ public class MatchManager : MonoBehaviour {
                 
                 GoleiroBrain gb = p.GetComponent<GoleiroBrain>();
                 if (gb != null) {
-                    // Nota: Para o goleiro, o 'gol de defesa' é onde ele fica!
                     gb.Initialize(elenco[i], bola, defesa, ataque); 
                     
                     if (tagDoTime == "CASA") goleiroCasaObj = gb;
@@ -139,14 +138,10 @@ public class MatchManager : MonoBehaviour {
                 
                 FootballBrain brain = p.GetComponent<FootballBrain>();
                 if (brain != null) {
-                    listaInstancias.Add(brain); // Adiciona na lista SOMENTE jogadores de linha
+                    brain.Initialize(elenco[i], bola, ataque, defesa, listaInstancias, tX, tZ);
+                    listaInstancias.Add(brain); 
                 }
             }
-        }
-
-        // Inicializa os jogadores de linha
-        for (int i = 0; i < listaInstancias.Count; i++) {
-            listaInstancias[i].Initialize(elenco[i], bola, ataque, defesa, listaInstancias);
         }
     }
 
@@ -174,26 +169,18 @@ public class MatchManager : MonoBehaviour {
             }
         }
 
-        // Reseta os jogadores de linha
         ResetarPosicoesDoTime(jogadoresCasa, spawnsCasa);
         ResetarPosicoesDoTime(jogadoresVisitante, spawnsVisitante);
 
-        // Reseta os Goleiros
         if (goleiroCasaObj != null) goleiroCasaObj.ResetarPosicao();
         if (goleiroVisitanteObj != null) goleiroVisitanteObj.ResetarPosicao();
-        
-        Debug.Log("BOLA NO CENTRO, RECOMEÇA O JOGO!");
     }
 
     void ResetarPosicoesDoTime(List<FootballBrain> time, Transform[] spawns) {
-        // Encontra o spawn correspondente (pulando o índice do goleiro que pode estar no array)
         int indexSpawn = 0;
         for (int i = 0; i < time.Count; i++) {
             if (time[i] != null) {
                 
-                // Pula os spawns que são do goleiro (se por acaso a lógica colocar ele no meio do array)
-                // Uma forma simples é apenas usar a posição atual deles como base, mas como estamos limitados pelo MatchManager,
-                // Garantimos que os jogadores de linha assumam os primeiros spawns disponíveis.
                 if (indexSpawn < spawns.Length) {
                      time[i].transform.position = spawns[indexSpawn].position;
                      time[i].transform.rotation = spawns[indexSpawn].rotation;

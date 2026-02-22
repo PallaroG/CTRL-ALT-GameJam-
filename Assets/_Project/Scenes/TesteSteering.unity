@@ -1589,34 +1589,28 @@ MonoBehaviour:
   golDireita: {fileID: 1050751316}
   prefabJogador: {fileID: 8446920070214480219, guid: 5e57c62556478ca488bd78140edaed21, type: 3}
   prefabGoleiro: {fileID: 8446920070214480219, guid: ba7b4dcdd2adfd344a3b2fdd3891871a, type: 3}
-  timeCasa:
-  - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
-  - {fileID: 11400000, guid: 288de9fe147edba4a94054c7c7d8231e, type: 2}
-  - {fileID: 11400000, guid: 6ba4c9d7c8f86aa49b8655b20636699a, type: 2}
-  - {fileID: 11400000, guid: d96ac94f0fe4bd04f9604690be04a2c4, type: 2}
-  timeVisitante:
-  - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
-  - {fileID: 11400000, guid: 288de9fe147edba4a94054c7c7d8231e, type: 2}
-  - {fileID: 11400000, guid: 6ba4c9d7c8f86aa49b8655b20636699a, type: 2}
-  - {fileID: 11400000, guid: d96ac94f0fe4bd04f9604690be04a2c4, type: 2}
+  timeCasa: []
+  timeVisitante: []
   spawnsCasa:
+  - {fileID: 1433406177}
   - {fileID: 1208266907}
   - {fileID: 1161761651}
   - {fileID: 1282591456}
-  - {fileID: 1433406177}
   - {fileID: 1538837041}
   - {fileID: 1238932931}
   - {fileID: 77708456}
   - {fileID: 1315645135}
+  coordenadasCasa: []
   spawnsVisitante:
+  - {fileID: 758056208}
   - {fileID: 978533860}
   - {fileID: 1997978528}
   - {fileID: 848769204}
-  - {fileID: 758056208}
   - {fileID: 2119557185}
   - {fileID: 1976325347}
   - {fileID: 168353807}
   - {fileID: 1610274332}
+  coordenadasVisitante: []
 --- !u!1 &645717643
 GameObject:
   m_ObjectHideFlags: 0
