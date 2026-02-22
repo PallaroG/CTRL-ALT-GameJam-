@@ -20,6 +20,10 @@ public class FootballBrain : MonoBehaviour {
     public Transform bola;
     public Transform golAtaque;
     public Transform golDefesa;
+    public bool souOAtivo = false;
+    
+    public float minhaTaticaX; 
+    public float minhaTaticaZ; 
 
     [Header("Sensores de IA")]
     public float raioDeDeteccao = 15.0f; 
@@ -40,14 +44,23 @@ public class FootballBrain : MonoBehaviour {
     public List<MemoriaJogador> mapaMentalDoTime = new List<MemoriaJogador>();
     private float nextScanTime = 0f;
 
+    [Header("Contato Físico")]
+    public float distanciaContatoFisico = 3.5f; 
+    public float forcaDoEmpurrao = 50f;
+    private float tempoAtordoado = 0f; 
+
     [Header("Debug")]
     public AIState estadoAtual;
 
-    public void Initialize(PlayerData data, Transform _bolaReal, Transform _ataque, Transform _defesa, List<FootballBrain> _time) {
+    public void Initialize(PlayerData data, Transform _bolaReal, Transform _ataque, Transform _defesa, List<FootballBrain> _time, float _tX, float _tZ) {
         stats = data;
         golAtaque = _ataque;
         golDefesa = _defesa;
         bola = _bolaReal; 
+        
+        minhaTaticaX = _tX;
+        minhaTaticaZ = _tZ;
+
         motor = GetComponent<ArcadeMotor>();
         if (meuSprite != null && stats.fotoDoPersonagem != null) meuSprite.sprite = stats.fotoDoPersonagem;
 
@@ -61,6 +74,11 @@ public class FootballBrain : MonoBehaviour {
     }
 
     void Update() {
+        if (Time.time < tempoAtordoado) {
+            estadoAtual = AIState.TACKLE;
+            return; 
+        }
+
         if (bola == null) return;
         float distBola = Vector3.Distance(transform.position, bola.position);
         
@@ -79,10 +97,45 @@ public class FootballBrain : MonoBehaviour {
         motor.LookAtTarget(bola.position);
     }
 
-    // ==========================================
-    // LÓGICA DE DEFESA / SEM BOLA
-    // ==========================================
+    public void ReceberEmpurrao(Vector3 forca) {
+        tempoAtordoado = Time.time + 0.8f; 
+        motor.Stop(); 
+        Rigidbody meuRb = GetComponent<Rigidbody>();
+        if (meuRb != null) {
+            meuRb.linearVelocity = Vector3.zero; 
+            meuRb.AddForce(forca, ForceMode.Impulse); 
+        }
+    }
+
     void ProcessarInteligenciaSemBola(float distBola) {
+        if (!souOAtivo) {
+            if (VerificarPosseDeBolaAliada()) {
+                estadoAtual = AIState.SUPPORT;
+                Vector3 posicaoBase = CalcularPosicaoTaticaBase();
+                Vector3 direcaoProGol = (golAtaque.position - golDefesa.position).normalized;
+
+                Vector3 pontoDeSuporte = posicaoBase + (direcaoProGol * 15.0f);
+                pontoDeSuporte.y = transform.position.y;
+
+                Debug.DrawLine(transform.position, pontoDeSuporte, Color.green);
+                float distProSuporte = Vector3.Distance(transform.position, pontoDeSuporte);
+                motor.SetMovement(pontoDeSuporte, Vector3.zero, stats.maxSpeed * Mathf.Max(Mathf.Clamp01(distProSuporte / zonaDeFrenagem), 0.4f));
+            } else {
+                estadoAtual = AIState.RETURN_POSITION;
+                Vector3 posicaoBase = CalcularPosicaoTaticaBase();
+                
+                Debug.DrawLine(transform.position, posicaoBase, Color.yellow);
+                
+                float distPraBase = Vector3.Distance(transform.position, posicaoBase);
+                if (distPraBase > 2.0f) {
+                    motor.SetMovement(posicaoBase, Vector3.zero, stats.maxSpeed * Mathf.Max(Mathf.Clamp01(distPraBase / zonaDeFrenagem), 0.4f));
+                } else {
+                    motor.Stop(); 
+                }
+            }
+            return; 
+        }
+
         Rigidbody rbBola = bola.GetComponentInParent<Rigidbody>();
         Vector3 velBola = rbBola != null ? rbBola.linearVelocity : Vector3.zero;
 
@@ -102,14 +155,29 @@ public class FootballBrain : MonoBehaviour {
             Debug.DrawLine(bola.position, pontoDeBloqueio, Color.red); 
 
             float distProBloqueio = Vector3.Distance(transform.position, pontoDeBloqueio);
-            float fatorVel = Mathf.Clamp01(distProBloqueio / zonaDeFrenagem);
-            motor.SetMovement(pontoDeBloqueio, Vector3.zero, stats.maxSpeed * Mathf.Max(fatorVel, 0.4f));
+            motor.SetMovement(pontoDeBloqueio, Vector3.zero, stats.maxSpeed * Mathf.Max(Mathf.Clamp01(distProBloqueio / zonaDeFrenagem), 0.4f));
             return;
         }
 
         estadoAtual = AIState.CHASE_BALL;
-        float fatorVelBasica = Mathf.Clamp01(distBola / zonaDeFrenagem);
-        motor.SetMovement(bola.position, Vector3.zero, stats.maxSpeed * Mathf.Max(fatorVelBasica, 0.35f));
+        motor.SetMovement(bola.position, Vector3.zero, stats.maxSpeed * Mathf.Max(Mathf.Clamp01(distBola / zonaDeFrenagem), 0.35f));
+    }
+
+    Vector3 CalcularPosicaoTaticaBase() {
+        Vector3 profundidadeTatica = Vector3.Lerp(golDefesa.position, golAtaque.position, minhaTaticaX);
+        Vector3 direcaoGol = (golAtaque.position - golDefesa.position).normalized;
+        Vector3 perpendicular = Vector3.Cross(Vector3.up, direcaoGol).normalized;
+        
+        float largura = Mathf.Lerp(-60f, 60f, minhaTaticaZ);
+        Vector3 larguraTatica = perpendicular * largura;
+
+        Vector3 baseFixa = profundidadeTatica + larguraTatica;
+        
+        Vector3 posicaoBolaLimitada = bola.position;
+        posicaoBolaLimitada.y = transform.position.y;
+        Vector3 baseFinal = Vector3.Lerp(baseFixa, posicaoBolaLimitada, 0.1f); 
+
+        return baseFinal;
     }
 
     bool VerificarPosseDeBolaInimiga() {
@@ -121,9 +189,16 @@ public class FootballBrain : MonoBehaviour {
         return false;
     }
 
-    // ==========================================
-    // MAPA MENTAL
-    // ==========================================
+    bool VerificarPosseDeBolaAliada() {
+        Collider[] cols = Physics.OverlapSphere(bola.position, distanciaChuteArcade + 1.0f);
+        foreach(var c in cols) {
+            if (c.attachedRigidbody != null && c.attachedRigidbody.CompareTag(this.tag) && c.attachedRigidbody.gameObject != this.gameObject) {
+                return true; 
+            }
+        }
+        return false;
+    }
+
     void AtualizarMapaMental() {
         Collider[] encontrados = Physics.OverlapSphere(transform.position, distanciaBuscaCompanheiro);
         foreach (var col in encontrados) {
@@ -147,56 +222,43 @@ public class FootballBrain : MonoBehaviour {
         mem.tempoDaLembranca = Time.time;
     }
 
-    // ==========================================
-    // CASCATA DE DECISÃO (COM A BOLA)
-    // ==========================================
     void ProcessarDecisaoDeCraque() {
         Vector3 direcaoGol = (golAtaque.position - transform.position).normalized;
         string tagInimiga = (this.CompareTag("CASA")) ? "VISITANTE" : "CASA";
         
-        // 1. TENTA O PASSE
-        Transform alvoPasse = ProcurarMelhorOpcaoDePasse();
-        if (alvoPasse != null && Random.Range(0, 100) < chanceDePassar) {
-            ExecutarPasse(alvoPasse);
-            return; 
-        }
-
-        // 2. RADAR DE PRESSÃO (Tapa pro vazio e Jogo de Corpo)
-        Collider[] pressaoColada = Physics.OverlapSphere(transform.position, raioDePressao);
-        Vector3 vetorFuga = Vector3.zero;
-        int inimigosColados = 0;
+        Collider[] pressaoColada = Physics.OverlapSphere(transform.position, distanciaContatoFisico);
+        bool sofrendoPressao = false;
 
         foreach (var col in pressaoColada) {
             if (col.attachedRigidbody != null && col.attachedRigidbody.CompareTag(tagInimiga)) {
-                Vector3 afastar = transform.position - col.attachedRigidbody.position;
-                afastar.y = 0;
-                vetorFuga += afastar.normalized;
-                inimigosColados++;
-                
-                // MALÍCIA: Jogo de Corpo! Empurra o adversário levemente para criar distância
-                col.attachedRigidbody.AddForce(-afastar.normalized * 30f, ForceMode.Impulse);
+                FootballBrain inimigoBrain = col.attachedRigidbody.GetComponent<FootballBrain>();
+                if (inimigoBrain != null) {
+                    Vector3 direcaoEmpurrao = (col.attachedRigidbody.position - transform.position).normalized;
+                    direcaoEmpurrao.y = 0.2f; 
+                    inimigoBrain.ReceberEmpurrao(direcaoEmpurrao * forcaDoEmpurrao);
+                    sofrendoPressao = true;
+                }
             }
         }
 
-        if (inimigosColados > 0) {
-            // Mistura a fuga com as laterais para forçar a diagonal (exatamente as setas do seu desenho)
-            Vector3 perpendicular = Vector3.Cross(Vector3.up, direcaoGol).normalized;
-            float lado = Vector3.Dot(perpendicular, vetorFuga);
-            Vector3 diagonalLivre = (lado > 0) ? perpendicular : -perpendicular;
-
-            Vector3 toqueProVazio = (vetorFuga.normalized + diagonalLivre * 0.8f).normalized;
-
-            AplicarForcaNaBola(toqueProVazio, stats.kickPower * 0.45f, "Jogo de Corpo! Tapa pro espaço vazio!", "magenta");
-            
-            // Dá um leve impulso no próprio jogador para ele arrancar rápido na direção da bola
-            Rigidbody meuRb = GetComponent<Rigidbody>();
-            if (meuRb != null) meuRb.AddForce(toqueProVazio * 15f, ForceMode.Impulse);
-
-            nextActionTime = Time.time + 0.6f;
-            return;
+        if (sofrendoPressao) {
+            Transform alvoPasse = ProcurarMelhorOpcaoDePasse();
+            if (alvoPasse != null && Random.Range(0, 100) < chanceDePassar) {
+                ExecutarPasse(alvoPasse);
+            } else {
+                Vector3 direcaoFuga = (direcaoGol + transform.forward).normalized;
+                AplicarForcaNaBola(direcaoFuga, stats.kickPower, "Sufocado! Bica!", "magenta");
+                nextActionTime = Time.time + 0.8f;
+            }
+            return; 
         }
 
-        // 3. SENSOR FRONTAL
+        Transform opcaoPasse = ProcurarMelhorOpcaoDePasse();
+        if (opcaoPasse != null && Random.Range(0, 100) < chanceDePassar) {
+            ExecutarPasse(opcaoPasse);
+            return; 
+        }
+
         RaycastHit hit;
         Vector3 origemRaio = transform.position + (direcaoGol * 0.5f) + Vector3.up;
 
@@ -211,7 +273,6 @@ public class FootballBrain : MonoBehaviour {
             }
         }
 
-        // 4. CHUTE LIVRE
         ExecutarChuteDireto(); 
     }
 

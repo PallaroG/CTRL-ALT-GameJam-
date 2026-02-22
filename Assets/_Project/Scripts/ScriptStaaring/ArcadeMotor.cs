@@ -23,7 +23,6 @@ public class ArcadeMotor : MonoBehaviour {
         target.y = transform.position.y;
         Vector3 diff = target - transform.position;
 
-        // PASSO 3: Sensor de Parede com DEBUG VISUAL
         Vector3 desvioParede = CalcularDesvioParede();
 
         if (diff.magnitude > stoppingDistance) {
@@ -41,24 +40,19 @@ public class ArcadeMotor : MonoBehaviour {
 
     Vector3 CalcularDesvioParede() {
         RaycastHit hit;
-        Vector3 origem = transform.position + Vector3.up * 0.5f; // Altura do peito
+        Vector3 origem = transform.position + Vector3.up * 0.5f; 
         Vector3 direcao = transform.forward;
-        direcao.y = 0; // Garante que o raio não aponte para o chão
+        direcao.y = 0; 
         direcao.Normalize();
         
         float tamanhoRaio = 1.5f;
 
-        // DEBUG VISUAL: Raio Verde = Caminho Livre
         Debug.DrawRay(origem, direcao * tamanhoRaio, Color.green);
 
         if (Physics.Raycast(origem, direcao, out hit, tamanhoRaio)) {
-            // Ignora a bola, o chão e outros jogadores
             if (!hit.collider.CompareTag("Bola") && !hit.collider.CompareTag("Chao") && hit.collider.GetComponent<FootballBrain>() == null) {
-                
-                // DEBUG VISUAL: Raio Vermelho (Bateu) e Amarelo (Para onde a força vai empurrar)
                 Debug.DrawRay(origem, direcao * hit.distance, Color.red);
                 Debug.DrawRay(hit.point, hit.normal * 2f, Color.yellow);
-                
                 return hit.normal * forcaDesvioParede;
             }
         }

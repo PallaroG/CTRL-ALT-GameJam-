@@ -12,11 +12,7 @@ public class PlayerData : ScriptableObject {
     public GameObject visualModel;  
     public PosicaoTatica funcaoTatica;
 
-    [Header("Posicionamento Tático (IA)")]
-    [Range(0f, 1f)] public float taticaX = 0.5f; // 0 = Defesa, 1 = Ataque
-    [Range(0f, 1f)] public float taticaZ = 0.5f; // 0 = Esquerda, 1 = Direita
-
-    [Header("Física (Steering)")]
+    [Header("Física (Arcade)")]
     public float mass;           
     public float maxSpeed;       
     public float agilidade;      

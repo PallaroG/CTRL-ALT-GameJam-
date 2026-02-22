@@ -14,15 +14,22 @@ public class MatchManager : MonoBehaviour {
     public Transform bola;
     public Transform golEsquerda; 
     public Transform golDireita;  
+    
+    [Header("Prefabs de Jogadores")]
     public GameObject prefabJogador; 
+    public GameObject prefabGoleiro; 
 
     [Header("Times")]
     public List<PlayerData> timeCasa; 
     public List<PlayerData> timeVisitante; 
 
-    [Header("Spawns")]
-    public Transform[] spawnsCasa;     
+    [Header("Spawns & Táticas (Casa)")]
+    public Transform[] spawnsCasa;  
+    public Vector2[] coordenadasCasa; 
+
+    [Header("Spawns & Táticas (Visitante)")]
     public Transform[] spawnsVisitante; 
+    public Vector2[] coordenadasVisitante;
 
     private int placarCasa = 0;      
     private int placarVisitante = 0; 
@@ -30,6 +37,8 @@ public class MatchManager : MonoBehaviour {
 
     private List<FootballBrain> jogadoresCasa = new List<FootballBrain>();
     private List<FootballBrain> jogadoresVisitante = new List<FootballBrain>();
+    private GoleiroBrain goleiroCasaObj;
+    private GoleiroBrain goleiroVisitanteObj;
 
     void Awake() { Instance = this; }
 
@@ -52,14 +61,8 @@ public class MatchManager : MonoBehaviour {
         jogadoresCasa.Clear();
         jogadoresVisitante.Clear();
 
-        // --- MUDANÇA: Agora passamos a Tag correspondente a cada time ---
-        // Casa: Nasce na esquerda, ataca a direita, defende a esquerda
-        SpawnarTime(timeCasa, spawnsCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
-        
-        // Visitante: Nasce na direita, ataca a esquerda, defende a direita
-        SpawnarTime(timeVisitante, spawnsVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
-        
-        Debug.Log("APITA O ÁRBITRO! BOLA ROLANDO!");
+        SpawnarTime(timeCasa, spawnsCasa, coordenadasCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
+        SpawnarTime(timeVisitante, spawnsVisitante, coordenadasVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
     }
 
     void Update() {
@@ -67,9 +70,35 @@ public class MatchManager : MonoBehaviour {
         if (tempoAtual > 0) {
             tempoAtual -= Time.deltaTime;
             if(UIManager.Instance) UIManager.Instance.AtualizarTempo(tempoAtual);
+            
+            DefinirPapeisTaticos();
         } else {
             ApitarFimDeJogo();
         }
+    }
+
+    void DefinirPapeisTaticos() {
+        FootballBrain ativoCasa = ObterJogadorMaisProximo(jogadoresCasa);
+        FootballBrain ativoVisitante = ObterJogadorMaisProximo(jogadoresVisitante);
+
+        foreach(var j in jogadoresCasa) { if(j != null) j.souOAtivo = (j == ativoCasa); }
+        foreach(var j in jogadoresVisitante) { if(j != null) j.souOAtivo = (j == ativoVisitante); }
+    }
+
+    FootballBrain ObterJogadorMaisProximo(List<FootballBrain> time) {
+        FootballBrain maisPerto = null;
+        float menorDist = Mathf.Infinity;
+        foreach(var j in time) {
+            if (j == null) continue;
+            if (j.estadoAtual == AIState.WITH_BALL) return j;
+
+            float dist = Vector3.Distance(j.transform.position, bola.position);
+            if (dist < menorDist) { 
+                menorDist = dist; 
+                maisPerto = j; 
+            }
+        }
+        return maisPerto;
     }
 
     void ApitarFimDeJogo() {
@@ -82,39 +111,46 @@ public class MatchManager : MonoBehaviour {
         if(bola) bola.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    // --- MUDANÇA: A função agora aceita a tag do time como parâmetro ---
-    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
-        
+    void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Vector2[] coordenadasTaticas, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
         for (int i = 0; i < elenco.Count; i++) {
             if (i >= posicoes.Length) break;
 
-            GameObject p = Instantiate(prefabJogador, posicoes[i].position, posicoes[i].rotation);
-            p.name = elenco[i].nomePersonagem;
-            
-            // --- AQUI ESTÁ A MÁGICA: Atribui a tag dinamicamente ---
-            p.tag = tagDoTime; 
-            
-            FootballBrain brain = p.GetComponent<FootballBrain>();
-            if (brain != null) {
-                listaInstancias.Add(brain);
-            }
-        }
+            float tX = (i < coordenadasTaticas.Length) ? coordenadasTaticas[i].x : 0.5f;
+            float tZ = (i < coordenadasTaticas.Length) ? coordenadasTaticas[i].y : 0.5f;
 
-        for (int i = 0; i < listaInstancias.Count; i++) {
-            listaInstancias[i].Initialize(elenco[i], bola, ataque, defesa, listaInstancias);
+            if (elenco[i].funcaoTatica == PosicaoTatica.Goleiro) {
+                GameObject p = Instantiate(prefabGoleiro, posicoes[i].position, posicoes[i].rotation);
+                p.name = elenco[i].nomePersonagem;
+                p.tag = tagDoTime; 
+                
+                GoleiroBrain gb = p.GetComponent<GoleiroBrain>();
+                if (gb != null) {
+                    gb.Initialize(elenco[i], bola, defesa, ataque); 
+                    
+                    if (tagDoTime == "CASA") goleiroCasaObj = gb;
+                    else goleiroVisitanteObj = gb;
+                }
+            } 
+            else {
+                GameObject p = Instantiate(prefabJogador, posicoes[i].position, posicoes[i].rotation);
+                p.name = elenco[i].nomePersonagem;
+                p.tag = tagDoTime; 
+                
+                FootballBrain brain = p.GetComponent<FootballBrain>();
+                if (brain != null) {
+                    brain.Initialize(elenco[i], bola, ataque, defesa, listaInstancias, tX, tZ);
+                    listaInstancias.Add(brain); 
+                }
+            }
         }
     }
 
     public void RegistrarGol(string timeQueMarcou) {
         if (jogoAcabou) return; 
-
         if (timeQueMarcou == "Casa") placarCasa++;
         else placarVisitante++;
 
-        if (UIManager.Instance != null) {
-            UIManager.Instance.AtualizarPlacar(placarCasa, placarVisitante);
-        }
-        
+        if (UIManager.Instance != null) UIManager.Instance.AtualizarPlacar(placarCasa, placarVisitante);
         Rigidbody rb = bola.GetComponent<Rigidbody>();
         if (rb) rb.isKinematic = true;
 
@@ -123,7 +159,6 @@ public class MatchManager : MonoBehaviour {
 
     void ResetarCampo() {
         if (jogoAcabou) return;
-        
         if (bola != null) {
             bola.position = posicaoInicialBola;
             Rigidbody rb = bola.GetComponent<Rigidbody>();
@@ -136,20 +171,23 @@ public class MatchManager : MonoBehaviour {
 
         ResetarPosicoesDoTime(jogadoresCasa, spawnsCasa);
         ResetarPosicoesDoTime(jogadoresVisitante, spawnsVisitante);
-        
-        Debug.Log("BOLA NO CENTRO, RECOMEÇA O JOGO!");
+
+        if (goleiroCasaObj != null) goleiroCasaObj.ResetarPosicao();
+        if (goleiroVisitanteObj != null) goleiroVisitanteObj.ResetarPosicao();
     }
 
     void ResetarPosicoesDoTime(List<FootballBrain> time, Transform[] spawns) {
+        int indexSpawn = 0;
         for (int i = 0; i < time.Count; i++) {
-            if (i < spawns.Length && time[i] != null) {
+            if (time[i] != null) {
                 
-                time[i].transform.position = spawns[i].position;
-                time[i].transform.rotation = spawns[i].rotation;
+                if (indexSpawn < spawns.Length) {
+                     time[i].transform.position = spawns[indexSpawn].position;
+                     time[i].transform.rotation = spawns[indexSpawn].rotation;
+                     indexSpawn++;
+                }
                 
-                // O AIState agora será reconhecido globalmente
                 time[i].estadoAtual = AIState.RETURN_POSITION;
-                
                 Rigidbody rb = time[i].GetComponent<Rigidbody>();
                 if(rb) {
                     rb.linearVelocity = Vector3.zero;

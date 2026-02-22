@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
+  m_Name: manco
+  m_EditorClassIdentifier: 
+  nomePersonagem: Fiat Uno
+  fotoDoPersonagem: {fileID: -1969850886, guid: ca15dba1624550541a0125ed656e5b47, type: 3}
+  corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
+  visualModel: {fileID: 0}
+  funcaoTatica: 0
+  mass: 10
+  maxSpeed: 25
+  agilidade: 25
+  aceleracao: 170
+  precisao: 20
+  kickPower: 200
+  podeVoar: 0
+  alturaDeVoo: 3

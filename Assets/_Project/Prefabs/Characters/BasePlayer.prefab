@@ -171,8 +171,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
-  m_CollisionDetection: 2
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!114 &1471383035282020372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,16 +205,22 @@ MonoBehaviour:
   bola: {fileID: 0}
   golAtaque: {fileID: 0}
   golDefesa: {fileID: 0}
+  souOAtivo: 0
+  minhaTaticaX: 0
+  minhaTaticaZ: 0
   raioDeDeteccao: 115
   larguraDoSensor: 4
   distanciaChuteArcade: 4.3
   distanciaParaDriblar: 15
+  raioDePressao: 2.5
   forcaMinima: 0.141
-  forcaMaxima: 0.89
+  forcaMaxima: 1
   zonaDeFrenagem: 3
   chanceDePassar: 100
   distanciaBuscaCompanheiro: 60
   mapaMentalDoTime: []
+  distanciaContatoFisico: 3.5
+  forcaDoEmpurrao: 50
   estadoAtual: 0
 --- !u!1 &8938009216277398316
 GameObject:
