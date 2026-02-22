@@ -8,6 +8,7 @@ TagManager:
   - Chao
   - CASA
   - VISITANTE
+  - dialogueBox
   layers:
   - Default
   - TransparentFX
