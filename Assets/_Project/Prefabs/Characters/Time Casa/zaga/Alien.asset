@@ -20,7 +20,7 @@ MonoBehaviour:
   mass: 1.5
   maxSpeed: 25
   agilidade: 60
-  aceleracao: 90
+  aceleracao: 130
   precisao: 70
   kickPower: 150
   podeVoar: 0

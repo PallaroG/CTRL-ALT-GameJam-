@@ -2109,7 +2109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ef4fe2510791a429a71943e57d0129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempoDePartida: 20
+  tempoDePartida: 240
   bola: {fileID: 1589936426}
   golEsquerda: {fileID: 490651458}
   golDireita: {fileID: 1050751316}
@@ -2121,6 +2121,30 @@ MonoBehaviour:
   distanciaEmpolgacao: 30
   prefabJogador: {fileID: 8446920070214480219, guid: 5e57c62556478ca488bd78140edaed21, type: 3}
   prefabGoleiro: {fileID: 8446920070214480219, guid: ba7b4dcdd2adfd344a3b2fdd3891871a, type: 3}
+  bancoDeJogadoresGeral:
+  - {fileID: 11400000, guid: 0899a2abd2cb8294f913c292af057557, type: 2}
+  - {fileID: 11400000, guid: 6b057673841f70447902d00cbce15636, type: 2}
+  - {fileID: 11400000, guid: 288de9fe147edba4a94054c7c7d8231e, type: 2}
+  - {fileID: 11400000, guid: 0c4b639b81c7f3f438284fc83327e9f4, type: 2}
+  - {fileID: 11400000, guid: 54d8caaca1a5c8f46b1d72d64fb19f35, type: 2}
+  - {fileID: 11400000, guid: ac07fcf6b42e50b46afea780aa7ed042, type: 2}
+  - {fileID: 11400000, guid: 3bdb8ab7110da814fa4c3d16cc932022, type: 2}
+  - {fileID: 11400000, guid: 6ba4c9d7c8f86aa49b8655b20636699a, type: 2}
+  - {fileID: 11400000, guid: ad78fa1a60e05b24caf3538454d62c42, type: 2}
+  - {fileID: 11400000, guid: e9f3e69156dd2b84abd0f8c51dd748c6, type: 2}
+  - {fileID: 11400000, guid: e81f3abc1e6f36a4ab4b5b940ab590d7, type: 2}
+  - {fileID: 11400000, guid: aaf899722027e76499fc081cab82918a, type: 2}
+  - {fileID: 11400000, guid: 8b0ac05e93bc557469b275089daadb7b, type: 2}
+  - {fileID: 11400000, guid: 268d0ee566135d442b31ca8b3816bd12, type: 2}
+  - {fileID: 11400000, guid: 6c26c847155ddb0488cb55663088d9e7, type: 2}
+  - {fileID: 11400000, guid: 489a56b78f55dd74caa5f9eb530972ea, type: 2}
+  - {fileID: 11400000, guid: aed5788962b6a684c8b0bc4f0552df44, type: 2}
+  - {fileID: 11400000, guid: 2ce9a3d5276a9d44983ad36c786855bd, type: 2}
+  - {fileID: 11400000, guid: d6a1bb716346a5f41a24e7fa8a99a403, type: 2}
+  - {fileID: 11400000, guid: 6b7c3a51cb16ecd4abc1356ecd48427d, type: 2}
+  - {fileID: 11400000, guid: 635f18c8ffcfdba438949eacf25ec533, type: 2}
+  - {fileID: 11400000, guid: d96ac94f0fe4bd04f9604690be04a2c4, type: 2}
+  - {fileID: 11400000, guid: f0b48b6db6be8ea4aad3276b8a54c8fa, type: 2}
   timeCasa:
   - {fileID: 11400000, guid: 635f18c8ffcfdba438949eacf25ec533, type: 2}
   - {fileID: 11400000, guid: 0899a2abd2cb8294f913c292af057557, type: 2}
@@ -4774,6 +4798,31 @@ MonoBehaviour:
   logoVitoria: {fileID: 375949498}
   logoDerrota: {fileID: 371965285}
   logoEmpate: {fileID: 0}
+  duracaoZoom: 0.5
+  curvaDeZoom:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   nomeCenaMenu: Game
 --- !u!1001 &1589936425
 PrefabInstance:

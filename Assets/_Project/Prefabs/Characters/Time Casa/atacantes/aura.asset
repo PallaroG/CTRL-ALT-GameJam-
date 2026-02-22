@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875a58aac90c6504984700b8bb56740b, type: 3}
-  m_Name: paulista
+  m_Name: aura
   m_EditorClassIdentifier: 
-  nomePersonagem: Fiat Uno
-  fotoDoPersonagem: {fileID: 1155528838, guid: 33f2e2290f37b5c419ae8758865bee09, type: 3}
-  corRepresentativa: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0}
+  nomePersonagem: Aura
+  fotoDoPersonagem: {fileID: 1580083398, guid: 8a17686461d0baa40b65f386006e95a2, type: 3}
+  corRepresentativa: {r: 0.6509434, g: 0.07614854, b: 0.03991636, a: 0}
   visualModel: {fileID: 0}
   funcaoTatica: 0
-  mass: 10
-  maxSpeed: 25
-  agilidade: 25
+  mass: 1
+  maxSpeed: 33.1
+  agilidade: 90.1
   aceleracao: 180
-  precisao: 61.7
-  kickPower: 150
+  precisao: 71.5
+  kickPower: 173.2
   podeVoar: 0
-  alturaDeVoo: 3
+  alturaDeVoo: 2
