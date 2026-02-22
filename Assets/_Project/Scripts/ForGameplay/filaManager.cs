@@ -35,4 +35,10 @@ public class filaManager : MonoBehaviour
         }
     }
 
+    // Retorna verdadeiro se o número de pessoas for igual ou maior que o número de pontos no chão
+    public bool FilaCheia()
+    {
+        return personagens.Count >= pontosFila.Length;
+    }
+
 }
