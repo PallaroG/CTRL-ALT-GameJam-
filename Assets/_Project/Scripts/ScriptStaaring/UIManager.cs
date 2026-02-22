@@ -1,56 +1,55 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement; // Para reiniciar a cena
+using TMPro; // Biblioteca obrigatória para textos com boa resolução na Unity
 
 public class UIManager : MonoBehaviour {
-    
-    public static UIManager Instance;
-    
-    [Header("HUD")]
-    public TextMeshProUGUI textoPlacar;
-    public TextMeshProUGUI textoTempo; // <--- NOVO
-    
-    [Header("Fim de Jogo")]
-    public GameObject painelFimJogo;   // <--- NOVO
-    public TextMeshProUGUI textoVencedor; // <--- NOVO
 
-    void Awake() {
-        Instance = this;
+    public static UIManager Instance; 
+
+    [Header("Painéis de Placar (Separados)")]
+    [Tooltip("Arraste o TextMeshPro do placar do time da Casa aqui")]
+    public TextMeshProUGUI textoPlacarCasa;
+    
+    [Tooltip("Arraste o TextMeshPro do placar do time Visitante aqui")]
+    public TextMeshProUGUI textoPlacarVisitante;
+
+    [Header("Cronômetro")]
+    public TextMeshProUGUI textoTempo;
+
+    [Header("Telas de Jogo")]
+    public GameObject painelFimJogo;
+    public TextMeshProUGUI textoResultadoFinal;
+
+    void Awake() { 
+        Instance = this; 
     }
 
-    public void AtualizarPlacar(int golsCasa, int golsVisitante) {
-        if (textoPlacar != null) {
-            textoPlacar.text = $"CASA {golsCasa} X {golsVisitante} VISITANTE";
-            // Efeito visual de "Pop"
-            textoPlacar.transform.localScale = Vector3.one * 1.5f;
-            Invoke("ResetarEscala", 0.5f);
+    // O MatchManager chama essa função e manda os dois números isolados
+    public void AtualizarPlacar(int placarCasa, int placarVisitante) {
+        if (textoPlacarCasa != null) {
+            textoPlacarCasa.text = placarCasa.ToString();
+        }
+        
+        if (textoPlacarVisitante != null) {
+            textoPlacarVisitante.text = placarVisitante.ToString();
         }
     }
-    
-    // --- NOVO: Atualiza o relógio ---
-    public void AtualizarTempo(float tempoRestante) {
+
+    // Converte os segundos corridos em formato de relógio (MM:SS)
+    public void AtualizarTempo(float tempoAtual) {
         if (textoTempo != null) {
-            // Formata para minutos:segundos (ex: 90:00)
-            int minutos = Mathf.FloorToInt(tempoRestante / 60);
-            int segundos = Mathf.FloorToInt(tempoRestante % 60);
+            int minutos = Mathf.FloorToInt(tempoAtual / 60F);
+            int segundos = Mathf.FloorToInt(tempoAtual % 60F);
             textoTempo.text = string.Format("{0:00}:{1:00}", minutos, segundos);
         }
     }
 
-    // --- NOVO: Mostra quem ganhou ---
-    public void MostrarFimDeJogo(string mensagemVitoria) {
+    public void MostrarFimDeJogo(string resultado) {
         if (painelFimJogo != null) {
-            painelFimJogo.SetActive(true); // Liga o painel
-            textoVencedor.text = mensagemVitoria;
+            painelFimJogo.SetActive(true);
         }
-    }
-
-    // --- NOVO: Função para o Botão (Ligue isso no OnClick do botão) ---
-    public void ReiniciarCena() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    void ResetarEscala() {
-        textoPlacar.transform.localScale = Vector3.one;
+        
+        if (textoResultadoFinal != null) {
+            textoResultadoFinal.text = resultado;
+        }
     }
 }

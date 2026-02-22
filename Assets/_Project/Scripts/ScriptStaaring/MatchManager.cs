@@ -15,6 +15,17 @@ public class MatchManager : MonoBehaviour {
     public Transform golEsquerda; 
     public Transform golDireita;  
     
+    [Header("Áudio da Partida (NOVO)")]
+    public AudioSource sfxSource;       // Toca efeitos rápidos (Apito, Gol)
+    public AudioSource torcidaSource;   // Toca o som ambiente (Torcida em loop)
+    public AudioClip somApito;
+    public AudioClip somGol;
+    public AudioClip somTorcida;
+    [Tooltip("Distância da bola para o gol onde a torcida começa a gritar mais alto")]
+    public float distanciaEmpolgacao = 30f; 
+    private float volumeMinimoTorcida = 0.3f; // Volume base quando a bola tá no meio campo
+    private bool comemorandoGol = false;
+
     [Header("Prefabs de Jogadores")]
     public GameObject prefabJogador; 
     public GameObject prefabGoleiro; 
@@ -51,6 +62,7 @@ public class MatchManager : MonoBehaviour {
         placarCasa = 0;
         placarVisitante = 0;
         jogoAcabou = false;
+        comemorandoGol = false;
         tempoAtual = tempoDePartida;
 
         if(UIManager.Instance != null) {
@@ -63,6 +75,17 @@ public class MatchManager : MonoBehaviour {
 
         SpawnarTime(timeCasa, spawnsCasa, coordenadasCasa, golDireita, golEsquerda, jogadoresCasa, "CASA"); 
         SpawnarTime(timeVisitante, spawnsVisitante, coordenadasVisitante, golEsquerda, golDireita, jogadoresVisitante, "VISITANTE"); 
+        
+        // APITO INICIAL E LIGA A TORCIDA
+        if (sfxSource != null && somApito != null) sfxSource.PlayOneShot(somApito);
+        if (torcidaSource != null && somTorcida != null) {
+            torcidaSource.clip = somTorcida;
+            torcidaSource.loop = true;
+            torcidaSource.volume = volumeMinimoTorcida;
+            torcidaSource.Play();
+        }
+        
+        Debug.Log("APITA O ÁRBITRO! BOLA ROLANDO!");
     }
 
     void Update() {
@@ -72,8 +95,29 @@ public class MatchManager : MonoBehaviour {
             if(UIManager.Instance) UIManager.Instance.AtualizarTempo(tempoAtual);
             
             DefinirPapeisTaticos();
+            ControlarVolumeTorcida(); // Chama a emoção da torcida!
         } else {
             ApitarFimDeJogo();
+        }
+    }
+
+    // A MÁGICA DA TORCIDA DINÂMICA
+    void ControlarVolumeTorcida() {
+        if (comemorandoGol || bola == null || torcidaSource == null) return;
+
+        // Mede a distância da bola para os dois gols e pega a menor
+        float distCasa = Vector3.Distance(bola.position, golDireita.position);
+        float distVis = Vector3.Distance(bola.position, golEsquerda.position);
+        float menorDistancia = Mathf.Min(distCasa, distVis);
+
+        if (menorDistancia < distanciaEmpolgacao) {
+            // Quanto mais perto de zero (dentro do gol), mais o multiplicador chega perto de 1
+            float empolgacao = 1f - (menorDistancia / distanciaEmpolgacao);
+            // Vai do volume mínimo (0.3) até quase o máximo (0.8) durante a jogada
+            torcidaSource.volume = Mathf.Lerp(volumeMinimoTorcida, 0.8f, empolgacao); 
+        } else {
+            // Bola longe, torcida calma
+            torcidaSource.volume = volumeMinimoTorcida;
         }
     }
 
@@ -109,6 +153,9 @@ public class MatchManager : MonoBehaviour {
         if (UIManager.Instance) UIManager.Instance.MostrarFimDeJogo(resultado);
         
         if(bola) bola.GetComponent<Rigidbody>().isKinematic = true;
+
+        // APITO FINAL
+        if (sfxSource != null && somApito != null) sfxSource.PlayOneShot(somApito);
     }
 
     void SpawnarTime(List<PlayerData> elenco, Transform[] posicoes, Vector2[] coordenadasTaticas, Transform ataque, Transform defesa, List<FootballBrain> listaInstancias, string tagDoTime) {
@@ -146,8 +193,19 @@ public class MatchManager : MonoBehaviour {
     }
 
     public void RegistrarGol(string timeQueMarcou) {
-        if (jogoAcabou) return; 
-        if (timeQueMarcou == "Casa") placarCasa++;
+        // O CADEADO: Se o jogo acabou ou se já estamos comemorando, ignora os pontos fantasmas!
+        if (jogoAcabou || comemorandoGol) return; 
+        
+        comemorandoGol = true; // Trava a dinâmica e deixa a torcida louca!
+
+        // GRITO DE GOL E TORCIDA NO MÁXIMO
+        if (torcidaSource != null) torcidaSource.volume = 1.0f; 
+        if (sfxSource != null && somGol != null) sfxSource.PlayOneShot(somGol);
+
+        // Limpa espaços em branco e deixa minúsculo para evitar erros de digitação no Inspector
+        string timeFormatado = timeQueMarcou.Trim().ToLower();
+
+        if (timeFormatado == "casa") placarCasa++;
         else placarVisitante++;
 
         if (UIManager.Instance != null) UIManager.Instance.AtualizarPlacar(placarCasa, placarVisitante);
@@ -159,6 +217,9 @@ public class MatchManager : MonoBehaviour {
 
     void ResetarCampo() {
         if (jogoAcabou) return;
+        
+        comemorandoGol = false; // A bola volta pro meio, a torcida acalma
+
         if (bola != null) {
             bola.position = posicaoInicialBola;
             Rigidbody rb = bola.GetComponent<Rigidbody>();
@@ -174,6 +235,9 @@ public class MatchManager : MonoBehaviour {
 
         if (goleiroCasaObj != null) goleiroCasaObj.ResetarPosicao();
         if (goleiroVisitanteObj != null) goleiroVisitanteObj.ResetarPosicao();
+        
+        // APITO DE RECOMEÇO
+        if (sfxSource != null && somApito != null) sfxSource.PlayOneShot(somApito);
     }
 
     void ResetarPosicoesDoTime(List<FootballBrain> time, Transform[] spawns) {
