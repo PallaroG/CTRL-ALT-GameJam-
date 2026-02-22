@@ -670,8 +670,8 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
+      speed: 0.09
+      saturation: 1.05
       brightness: 2.19
       offset: 2.7
   audioSource: {fileID: 0}
@@ -776,22 +776,22 @@ MonoBehaviour:
     autoNextNode: 1
     choices: []
   - text: "[anim=tremendinho]S\xF3 tem FEZES aqui! FEZES![/anim]"
-    autoNextNode: 1
+    autoNextNode: 2
     choices: []
   - text: "[anim=tremendinho]Estou a 1h esperando ser atendido e at\xE9 agora s\xF3
       senti o sabor de poder jogar um fute[/anim]"
-    autoNextNode: 1
+    autoNextNode: 3
     choices: []
   - text: "[anim=tremendinho]Mas calma Pai, agora voc\xEA encontrou o fela perfeito!![/anim]"
-    autoNextNode: 1
+    autoNextNode: 4
     choices: []
-  - text: "[anim=tremendinho]Eu vi que voc\xEA j\xE1 conheceu o Victor, meu flanelinha
-      favorito!! \xC9 um rapaz muito bom,\nadoraria jogar com ele.[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Eu vi que voc\xEA j\xE1 conheceu o Victor, meu [anim=tremendinho]flanelinha
+      favorito!![/anim] \xC9 um rapaz muito bom,\nadoraria jogar com ele.[/anim]"
+    autoNextNode: 5
     choices: []
-  - text: "[anim=tremendinho]Mas n\xE3o me ponha para ficar do lado desses cariocas
-      safados...[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Mas n\xE3o me ponha para ficar do lado desses [anim=tremendinho]cariocas
+      safados[/anim]...[/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &7209251777191349837
 GameObject:

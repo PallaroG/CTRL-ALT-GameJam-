@@ -23,6 +23,8 @@ namespace BasicSystems.UX
         public Material normalMaterial;
         public Material outlineMaterial;
 
+        private Vector3 posicaoOriginal;
+
         [Header("EVENTOS")]
 
         public bool usarAlternancia = false; //pra clicar uma segunda vez e fazer outra ação
@@ -41,24 +43,20 @@ namespace BasicSystems.UX
         {
             rend = GetComponent<Renderer>();
             normalMaterial = rend.material;
-
+            posicaoOriginal = transform.position;
         }
 
-        void OnMouseDown() //clicar no objeto
+        void OnMouseDown()
         {
             Debug.Log("clicou");
-
 
             if (usarAlternancia)
             {
                 if (!estadoAlternado)
-                {
-                    evento?.Invoke(); 
-                }
+                    evento?.Invoke();
                 else
-                {
                     event2?.Invoke();
-                }
+
                 estadoAlternado = !estadoAlternado;
             }
             else
@@ -66,13 +64,12 @@ namespace BasicSystems.UX
                 evento?.Invoke();
             }
 
-            transform.position += Vector3.down * descerClick;
-
+            transform.position = posicaoOriginal + Vector3.down * descerClick;
         }
 
         void OnMouseUp()
         {
-            transform.position += Vector3.up * levantarClick;
+            transform.position = posicaoOriginal;
         }
 
         void OnMouseEnter() //sobre o objeto

@@ -485,15 +485,16 @@ MonoBehaviour:
     autoNextNode: 2
     choices: []
   - text: "[anim=tremendinho]Eu gostaria de participar tamb\xE9m, o jeito que voc\xEA
-      gere \xE9 bem SLICED!\nAdoro isso! [/anim]"
+      gere \xE9 bem [anim=feliz]SLICED![/anim]\nAdoro isso! [/anim]"
     autoNextNode: 3
     choices: []
-  - text: "[anim=tremendinho]E gostaria de falar que aquele rapaz indigena tamb\xE9m
-      tem bastante potencial, n\xE3o gostaria\nde perd\xEA-lo de vista..[/anim]"
+  - text: "[anim=tremendinho]E gostaria de falar que aquele rapaz [anim=feliz]indigena[/anim]
+      tamb\xE9m tem bastante potencial, n\xE3o gostaria\nde perd\xEA-lo de vista..[/anim]"
     autoNextNode: 4
     choices: []
-  - text: "[anim=tremendinho]Por outro lado, \xE9 dif\xEDcil de perder aquele \u2018grand\xE3o
-      da Kasinski\u2019, esse eu n\xE3o quero passar na rua!! Ele n\xE3o se cuida..[/anim]"
+  - text: "[anim=tremendinho]Por outro lado, \xE9 dif\xEDcil de perder aquele [anim=bravo]\u2018grand\xE3o
+      da Kasinski\u2019, [/anim]esse eu n\xE3o quero passar na rua!! Ele n\xE3o se
+      cuida..[/anim]"
     autoNextNode: 0
     choices: []
 --- !u!1 &7473941146221193335

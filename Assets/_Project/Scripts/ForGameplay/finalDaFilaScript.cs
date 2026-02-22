@@ -1,17 +1,20 @@
-using SuperAnimatedDialogue.Runtime;
+using System;
 using UnityEngine;
 
 public class finalDaFilaScript : MonoBehaviour
 {
-    public GameObject Character;
-    void OnTriggerEnter(Collider other)
-    {
-        PersonagemFila personagem = other.GetComponent<PersonagemFila>();
+    [NonSerialized] public bool PodeContratar = false;
+    [NonSerialized] public PersonagemFila personagem;
 
-        if (personagem == null) return;
+    private void OnTriggerEnter(Collider other)
+    {
+        PersonagemFila p = other.GetComponent<PersonagemFila>();
+        if (p == null) return;
+
+        personagem = p;
+        PodeContratar = true;
 
         Transform[] filhos = other.GetComponentsInChildren<Transform>(true);
-
         foreach (Transform t in filhos)
         {
             if (t.CompareTag("dialogueBox"))
@@ -21,19 +24,57 @@ public class finalDaFilaScript : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        PersonagemFila personagem = other.GetComponent<PersonagemFila>();
+        PersonagemFila p = other.GetComponent<PersonagemFila>();
+        if (p == null) return;
 
-        if (personagem == null) return;
+        if (personagem == p)
+        {
+            PodeContratar = false;
+            personagem = null;
+        }
 
         Transform[] filhos = other.GetComponentsInChildren<Transform>(true);
-
         foreach (Transform t in filhos)
         {
             if (t.CompareTag("dialogueBox"))
             {
                 t.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // 🔹 ADICIONADO: força verificação manual de quem está dentro do trigger
+    public void ForcarRevalidacao()
+    {
+        Collider[] colliders = Physics.OverlapBox(
+            transform.position,
+            transform.localScale / 2,
+            transform.rotation
+        );
+
+        personagem = null;
+        PodeContratar = false;
+
+        foreach (Collider col in colliders)
+        {
+            PersonagemFila p = col.GetComponent<PersonagemFila>();
+            if (p != null)
+            {
+                personagem = p;
+                PodeContratar = true;
+
+                Transform[] filhos = col.GetComponentsInChildren<Transform>(true);
+                foreach (Transform t in filhos)
+                {
+                    if (t.CompareTag("dialogueBox"))
+                    {
+                        t.gameObject.SetActive(true);
+                    }
+                }
+
+                return;
             }
         }
     }

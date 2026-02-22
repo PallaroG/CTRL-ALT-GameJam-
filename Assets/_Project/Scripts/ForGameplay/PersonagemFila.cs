@@ -1,10 +1,29 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PersonagemFila : MonoBehaviour
 {
+    [Header("IDENTIDADE")]
+    public string ID; // ← COLOCA UM ID ÚNICO NO INSPECTOR
+
     public float velocidade = 3f;
+    public GameObject CharacterButton;
+
+    [Header("Relacionamentos")]
+    public List<PersonagemFila> naoGostaDe = new List<PersonagemFila>();
+
     private Transform alvo;
     private bool movendo = false;
+
+    public bool OdeiaID(string outroID)
+    {
+        foreach (var p in naoGostaDe)
+        {
+            if (p != null && p.ID == outroID)
+                return true;
+        }
+        return false;
+    }
 
     public void DefinirPosicao(Transform ponto)
     {

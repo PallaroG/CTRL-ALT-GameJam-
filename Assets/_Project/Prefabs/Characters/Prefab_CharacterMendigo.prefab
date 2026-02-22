@@ -209,11 +209,11 @@ MonoBehaviour:
     autoNextNode: 3
     choices: []
   - text: "[anim=tremendinho]e um pouco de sil\xEAncio a noite sem aqueles malditos
-      funkeiros.[/anim]"
+      [anim=bravo]funkeiros.[/anim][/anim]"
     autoNextNode: 4
     choices: []
-  - text: "[anim=tremendinho]A companhia do meu fiel amigo Caramelo j\xE1 \xE9 o
-      suficiente.\u201D[/anim]"
+  - text: "[anim=tremendinho]A companhia do meu fiel amigo [anim=feliz]Caramelo j\xE1
+      \xE9 o suficiente.[/anim][/anim]"
     autoNextNode: 0
     choices: []
 --- !u!1 &4359295584002518983
@@ -592,8 +592,8 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
+      speed: 0.09
+      saturation: 1.05
       brightness: 2.19
       offset: 2.7
   audioSource: {fileID: 0}

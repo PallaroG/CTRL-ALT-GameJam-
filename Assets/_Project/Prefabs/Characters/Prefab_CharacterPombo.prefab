@@ -376,8 +376,8 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
+      speed: 0.09
+      saturation: 1.05
       brightness: 2.19
       offset: 2.7
   audioSource: {fileID: 0}
@@ -586,11 +586,12 @@ MonoBehaviour:
       leve e sei voar![/anim]"
     autoNextNode: 4
     choices: []
-  - text: "[anim=tremendinho]S\xF3 n\xE3o me coloque do lado de nenhum c\xE3o sarnento,
-      odeio esses animais pulguentos e barulhentos.[/anim]"
+  - text: "[anim=tremendinho]S\xF3 n\xE3o me coloque do lado de nenhum [anim=bravo]c\xE3o
+      sarnento[/anim], odeio esses animais pulguentos e barulhentos.[/anim]"
     autoNextNode: 5
     choices: []
-  - text: "[anim=tremendinho]Mas adoro Capivara!! elas s\xE3o t\xE3o calminhas[/anim]"
+  - text: "[anim=tremendinho]Mas adoro [anim=feliz]Capivara!![/anim] elas s\xE3o
+      t\xE3o calminhas[/anim]"
     autoNextNode: 0
     choices: []
 --- !u!1 &6185017225218689845

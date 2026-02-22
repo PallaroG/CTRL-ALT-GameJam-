@@ -2,28 +2,52 @@ using UnityEngine;
 
 public class contratacaoScript : MonoBehaviour
 {
-    /*
-        script para controlar os botões de contratação
-        -----------------------------------------------
-        verifica qual o personagem é o primeiro na fila
-        método que contrata o personagem
-        método que dispensa o personagem
-
-    */
-
+    public finalDaFilaScript finalDaFilaScript;
     public filaManager filaManager;
+
     public void contratado()
     {
-        Debug.Log("Opa vem pra ca");
-        filaManager.SairPrimeiro();
-        //adicionar ele na tabela
-    }
+        if (!finalDaFilaScript.PodeContratar || finalDaFilaScript.personagem == null)
+            return;
 
+        PersonagemFila candidato = finalDaFilaScript.personagem;
+
+        // 🔥 VERIFICA POR ID
+        foreach (string idContratado in GameManager.Instance.personagensContratados)
+        {
+            if (candidato.OdeiaID(idContratado))
+            {
+                Debug.Log(candidato.ID + " odeia " + idContratado + " → dispensado.");
+
+                filaManager.SairPrimeiro();
+                finalDaFilaScript.ForcarRevalidacao();
+                finalDaFilaScript.PodeContratar = false;
+                finalDaFilaScript.personagem = null;
+                return;
+            }
+        }
+
+        // Pode contratar
+        Debug.Log("Contratado: " + candidato.ID);
+
+        if (candidato.CharacterButton != null)
+            candidato.CharacterButton.SetActive(true);
+
+        GameManager.Instance.AdicionarContratado(candidato);
+
+        filaManager.SairPrimeiro();
+        finalDaFilaScript.ForcarRevalidacao();
+        finalDaFilaScript.PodeContratar = false;
+        finalDaFilaScript.personagem = null;
+    }
     public void dispensado()
     {
-        Debug.Log("Sai pra lá");
+        if (!finalDaFilaScript.PodeContratar)
+            return;
+
         filaManager.SairPrimeiro();
+        finalDaFilaScript.ForcarRevalidacao();
+        finalDaFilaScript.PodeContratar = false;
+        finalDaFilaScript.personagem = null;
     }
-
-
 }

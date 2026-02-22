@@ -670,10 +670,10 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
-      brightness: 2.19
-      offset: 2.7
+      speed: 0.09
+      saturation: 1.05
+      brightness: 1.21
+      offset: 2.79
   audioSource: {fileID: 0}
   charSound: {fileID: 0}
   charSoundPitchVariation: 0.1
@@ -873,22 +873,22 @@ MonoBehaviour:
     choices: []
   - text: "[anim=tremendinho]To aqui para provar que a Terra \xE9 pla.. Quero dizer,
       provar meu valor no fute[/anim]"
-    autoNextNode: 1
+    autoNextNode: 2
     choices: []
   - text: "[anim=tremendinho]Gosto da ideia de estar em um est\xE1dio PLANO, sentir
       o gramado e correr \xE0 vontade.\nQuero ver a cara das pessoas que discordam
       de mim, na hora que eu fizer um gol!![/anim]"
-    autoNextNode: 1
+    autoNextNode: 3
     choices: []
   - text: "[anim=tremendinho]Ahh e tem meu grande amigo tamb\xE9m, aquele que usa
-      uma moto para se locomover, ele \xE9\nmuito legal![/anim]"
-    autoNextNode: 1
+      uma [anim=feliz]moto para se locomover[/anim], ele \xE9\nmuito legal![/anim]"
+    autoNextNode: 4
     choices: []
   - text: '[anim=tremendinho]Eu troco pizzas com ele e ele me deixa falar sobre meu
       assunto favorito...[/anim]'
-    autoNextNode: 1
+    autoNextNode: 5
     choices: []
-  - text: "[anim=tremendinho]Mas n\xE3o gosto quando entra no papo de Extra-terrestres,
-      n\xE3o acredito nesse tipo de coisa\nfalsificada!\u201D[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Mas n\xE3o gosto quando entra no papo de [anim=bravo]Extra-terrestres[/anim],
+      n\xE3o acredito nesse tipo de coisa\nfalsificada![/anim]"
+    autoNextNode: 0
     choices: []

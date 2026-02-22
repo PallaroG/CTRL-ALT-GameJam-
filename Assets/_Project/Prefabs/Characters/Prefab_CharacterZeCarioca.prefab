@@ -100,16 +100,16 @@ MonoBehaviour:
     choices: []
   - text: "[anim=tremendinho]Bora jogar um fute, curto muito n\xE9, sou do Rio...
       O maior eixtado do pa\xEDs inteiro papo reto!![/anim]"
-    autoNextNode: 1
+    autoNextNode: 2
     choices: []
-  - text: "[anim=tremendinho]Goxto do mano do funk, ele \xE9 sinixtro! Manda umax
-      bola maneiraix![/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]Goxto do mano do [anim=feliz]funk[/anim], ele \xE9 sinixtro!
+      Manda umax bola maneiraix![/anim]"
+    autoNextNode: 3
     choices: []
-  - text: "[anim=tremendinho]S\xF3 fico bolado com ox mano de SP, \xE9 tudo narix
-      empinado e n\xE3o sabe fazer nada moro?\nEnt\xE3o j\xE1 \xE9, s\xF3 chamar
-      que o pai tanka!\u201D[/anim]"
-    autoNextNode: 1
+  - text: "[anim=tremendinho]S\xF3 fico bolado com [anim=bravo]ox mano de SP[/anim],
+      \xE9 tudo narix empinado e n\xE3o sabe fazer nada moro?\nEnt\xE3o j\xE1 \xE9,
+      s\xF3 chamar que o pai tanka![/anim]"
+    autoNextNode: 0
     choices: []
 --- !u!1 &1420985149829377237
 GameObject:
@@ -487,8 +487,8 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
+      speed: 0.09
+      saturation: 1.05
       brightness: 2.19
       offset: 2.7
   audioSource: {fileID: 0}

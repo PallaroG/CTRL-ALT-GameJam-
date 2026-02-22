@@ -568,8 +568,8 @@ MonoBehaviour:
       depthScale: 0
     rainbow:
       enabled: 1
-      speed: 9.16
-      saturation: 1.8
+      speed: 0.09
+      saturation: 1.05
       brightness: 2.19
       offset: 2.7
   audioSource: {fileID: 0}
