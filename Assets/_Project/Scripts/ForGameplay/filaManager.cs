@@ -22,7 +22,7 @@ public class filaManager : MonoBehaviour
 
         personagens.RemoveAt(0);
 
-        Destroy(primeiro.gameObject); // ele some da cena
+        primeiro.gameObject.SetActive(false);
 
         AtualizarFila();
     }
