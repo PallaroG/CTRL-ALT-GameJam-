@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PersonagemFila : MonoBehaviour
 {
+    public string nomeDoPersonagem;
     public float velocidade = 3f;
 
     private Transform alvo;
