@@ -1,6 +1,4 @@
-using SuperAnimatedDialogue.Runtime;
 using UnityEngine;
-
 
 namespace BasicSystems.Effects
 {
@@ -9,22 +7,35 @@ namespace BasicSystems.Effects
         public float amplitude = 0.5f;
         public float frequency = 1f;
 
-        private Vector3 startPos;
+        public bool randomizeOnStart = true;
+        public Vector2 randomAmplitudeRange = new Vector2(0.2f, 1f);
+        public Vector2 randomFrequencyRange = new Vector2(0.5f, 2f);
+
+        private float randomOffset;
+        private float previousOffset;
 
         void Start()
         {
-            startPos = transform.position;
+            if (randomizeOnStart)
+            {
+                amplitude = Random.Range(randomAmplitudeRange.x, randomAmplitudeRange.y);
+                frequency = Random.Range(randomFrequencyRange.x, randomFrequencyRange.y);
+            }
+
+            randomOffset = Random.Range(0f, 100f);
         }
 
         void Update()
         {
-            float offset = Mathf.Sin(Time.time * frequency) * amplitude;
+            float currentOffset = Mathf.Sin((Time.time + randomOffset) * frequency) * amplitude;
 
-            Vector3 basePos = transform.position;
-            basePos.y += offset * Time.deltaTime;
+            // Remove offset anterior
+            transform.position -= Vector3.up * previousOffset;
 
-            transform.position = basePos;
+            // Aplica novo offset
+            transform.position += Vector3.up * currentOffset;
+
+            previousOffset = currentOffset;
         }
     }
-    
 }
