@@ -6,12 +6,16 @@ public class MenuManager : MonoBehaviour
     [Header("Botões")]
     public GameObject jogar;
     public GameObject opcoes;
-    public GameObject creditosBtn; // NOVO: Referência para o botão de Créditos
+    public GameObject creditosBtn;
     public GameObject sair;
     
     [Header("Telas (Windows)")]
     public GameObject opcoesWindow;
-    public GameObject creditosWindow; // NOVO: Referência para a tela de Créditos
+    public GameObject creditosWindow;
+
+    [Header("Áudio")]
+    public AudioSource musicaDoMenu; // NOVO: Referência para a música do menu
+    public AudioSource musicaDoJogo; 
 
     [Header("Config Cam")]
     Camera cam;
@@ -20,7 +24,7 @@ public class MenuManager : MonoBehaviour
     private Vector3 créditosParede = new Vector3(-15.33f, 2.49f, 3.19f);
     
     private Quaternion rotacaoParede = Quaternion.Euler(0, -90, 0);
-    private Quaternion rotacaoCreditos = Quaternion.Euler(0, -90, 0); // Assumindo que a parede de créditos tem a mesma rotação
+    private Quaternion rotacaoCreditos = Quaternion.Euler(0, -90, 0);
     
     private Vector3 destinoInicio = new Vector3(0.099f, 3.25f, 6.36f);
     private Quaternion rotacaoInicio = Quaternion.Euler(12.245f, 0, 0);
@@ -32,45 +36,41 @@ public class MenuManager : MonoBehaviour
     private bool camMove = false;
     private bool camMoveWall = false;
     private bool camMoveBack = false;
-    private bool camMoveCredits = false; // NOVO: Flag para mover para os créditos
+    private bool camMoveCredits = false;
 
     public void Start()
     {
         cam = Camera.main;
+        Time.timeScale = 0f; 
     }
 
     void Update()
     {
-        // Movimento para início do jogo
         if(camMove) 
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destino, velocidadeInicio * Time.deltaTime);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destino, velocidadeInicio * Time.unscaledDeltaTime);
 
-        // Movimento para parede de opções
         if(camMoveWall) 
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destinoParede, velocidadeOpcoes * Time.deltaTime);
-            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoParede, velocidadeRotacao * Time.deltaTime);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destinoParede, velocidadeOpcoes * Time.unscaledDeltaTime);
+            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoParede, velocidadeRotacao * Time.unscaledDeltaTime);
         }
 
-        // NOVO: Movimento para parede de créditos
         if(camMoveCredits) 
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, créditosParede, velocidadeOpcoes * Time.deltaTime);
-            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoCreditos, velocidadeRotacao * Time.deltaTime);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, créditosParede, velocidadeOpcoes * Time.unscaledDeltaTime);
+            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoCreditos, velocidadeRotacao * Time.unscaledDeltaTime);
         }
 
-        // Movimento de volta para o centro
         if(camMoveBack) 
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destinoInicio, velocidadeOpcoes * Time.deltaTime);
-            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoInicio, velocidadeRotacao * Time.deltaTime);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, destinoInicio, velocidadeOpcoes * Time.unscaledDeltaTime);
+            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, rotacaoInicio, velocidadeRotacao * Time.unscaledDeltaTime);
         }
 
-        // Parar os movimentos quando chegar no destino
         if(cam.transform.position == destino) camMove = false;
         else if(cam.transform.position == destinoInicio) camMoveBack = false;
         else if(cam.transform.position == destinoParede) camMoveWall = false;
-        else if(cam.transform.position == créditosParede) camMoveCredits = false; // Para a câmera nos créditos
+        else if(cam.transform.position == créditosParede) camMoveCredits = false;
     }
 
     public void ExitButton()
@@ -83,6 +83,21 @@ public class MenuManager : MonoBehaviour
         DesativarOutrosMovimentos();
         camMove = true;
         OcultarBotoesPrincipais();
+        
+        Time.timeScale = 1f;
+        
+        // NOVO: Pausa a música do menu (se ela existir)
+        if(musicaDoMenu != null)
+        {
+            musicaDoMenu.Pause(); 
+            // Dica: Use musicaDoMenu.Stop() no lugar de Pause() se você não planeja voltar pro menu e quiser liberar memória.
+        }
+
+        // NOVO: Toca a música do jogo
+        if(musicaDoJogo != null)
+        {
+            musicaDoJogo.Play();
+        }
     }
 
     public void OpenOptionsButton()
@@ -101,7 +116,6 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(MostrarBotoesPrincipais());
     }
 
-    // NOVO: Abrir Créditos
     public void OpenCreditsButton()
     {
         DesativarOutrosMovimentos();
@@ -110,7 +124,6 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(AtivarJanela(creditosWindow));
     }
 
-    // NOVO: Fechar Créditos
     public void CloseCreditsButton()
     {
         DesativarOutrosMovimentos();
@@ -119,9 +132,6 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(MostrarBotoesPrincipais());
     }
 
-    // --- FUNÇÕES AUXILIARES PARA LIMPAR O CÓDIGO ---
-
-    // Garante que a câmera não tente ir para dois lugares ao mesmo tempo se o jogador clicar rápido
     private void DesativarOutrosMovimentos()
     {
         camMove = false;
@@ -138,17 +148,15 @@ public class MenuManager : MonoBehaviour
         if(sair) sair.SetActive(false);
     }
 
-    // Coroutine única que serve tanto para ligar Opções quanto Créditos
     IEnumerator AtivarJanela(GameObject janela)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         if(janela) janela.SetActive(true);
     }
 
-    // Coroutine única para religar os botões do menu
     IEnumerator MostrarBotoesPrincipais()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         if(jogar) jogar.SetActive(true);
         if(opcoes) opcoes.SetActive(true);
         if(creditosBtn) creditosBtn.SetActive(true);
